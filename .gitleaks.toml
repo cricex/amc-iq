@@ -1,0 +1,7 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Azure built-in Key Vault Secrets User role definition ID"
+paths = ['''infra/modules/keyvault\.bicep''']
+regexes = ['''4633458b-17de-408a-b874-0445c86b69e6''']

@@ -1,0 +1,12 @@
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = [
+  "services/api/tests",
+  "agent/provisioning/live",
+]
+
+[tool.pyright]
+include = ["services/api/app"]
+extraPaths = ["services/api"]
+pythonVersion = "3.12"
+typeCheckingMode = "standard"

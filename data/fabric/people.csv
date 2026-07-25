@@ -1,0 +1,8 @@
+"person_id","display_name","role","site_id"
+"PI-01","Dr. Priya Anand","Principal Investigator (Thoracic Oncology)","SITE-01"
+"COORD-01","Dana Whitfield","Thoracic Oncology Trial Coordinator","SITE-01"
+"NAV-01","Morgan Lee","Care Navigator","SITE-01"
+"PI-02","Dr. Helen Ramirez","Principal Investigator (Breast Oncology)","SITE-02"
+"COORD-02","Jordan Ellis","Breast Oncology Trial Coordinator","SITE-02"
+"PI-03","Dr. Marcus Bell","Principal Investigator (Solid Tumor Oncology)","SITE-03"
+"COORD-03","Priya Nair","Solid Tumor Oncology Trial Coordinator","SITE-03"

@@ -1,0 +1,43 @@
+[
+  {
+    "task_id": "TASK-1042-CRCL",
+    "title": "Repeat CrCl for Alex Morgan (PT-1042) before NCT99004324 screening",
+    "owner_id": "COORD-01",
+    "owner_name": "Dana Whitfield",
+    "related_patient_id": "PT-1042",
+    "related_trial_id": "NCT99004324",
+    "due_date": "2026-07-08",
+    "status": "Open"
+  },
+  {
+    "task_id": "TASK-1042-PI-REVIEW",
+    "title": "Confirm prior-platinum exclusion interpretation for Alex Morgan (PT-1042)",
+    "owner_id": "PI-01",
+    "owner_name": "Dr. Priya Anand",
+    "related_patient_id": "PT-1042",
+    "related_trial_id": "NCT99004324",
+    "due_date": "2026-07-09",
+    "status": "Open"
+  },
+  {
+    "task_id": "TASK-1043-KRAS-REVIEW",
+    "title": "Check KRAS G12C trial slot status for Sam Carter (PT-1043)",
+    "owner_id": "COORD-01",
+    "owner_name": "Dana Whitfield",
+    "related_patient_id": "PT-1043",
+    "related_trial_id": "NCT99004325",
+    "due_date": "2026-07-10",
+    "status": "Open"
+  },
+  {
+    "task_id": "TASK-1045-RECORDS",
+    "title": "Request outside molecular report for Taylor Brooks (PT-1045)",
+    "owner_id": "NAV-01",
+    "owner_name": "Morgan Lee",
+    "related_patient_id": "PT-1045",
+    "related_trial_id": "NCT99004326",
+    "due_date": "2026-07-11",
+    "status": "Open"
+  }
+]
+

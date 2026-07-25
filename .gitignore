@@ -1,0 +1,51 @@
+# Internal planning & environment notes - never commit
+.gameplan/
+.agent-work/
+.dev-notes/
+.local/
+.scratch/
+tmp/
+artifacts/private/
+
+# Secrets / environment
+.env
+.env.*
+!.env.example
+*.local
+.azure/
+azd.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node / web
+node_modules/
+dist/
+build/
+.vite/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Data - keep small synthetic fixtures, ignore large generated blobs
+data/generated/
+*.parquet
+*.duckdb
+
+# Fabric API response scratch files
+metadata*.xml

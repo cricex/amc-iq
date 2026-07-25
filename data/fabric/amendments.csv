@@ -1,0 +1,8 @@
+"trial_id","amendment_id","label","effective_date","modifies_criterion_id","summary"
+"NCT99004324","AMD-1","Amendment 1","2026-01-15","NCT99004324-REN","Clarified creatinine clearance must use the CKD-EPI equation on the most recent lab draw."
+"NCT99004324","AMD-2","Amendment 2","2026-05-01","NCT99004324-RX","Revised the prior-platinum exclusion to a line-of-therapy interpretation; prior first-line platinum may be permitted with PI confirmation."
+"NCT99004325","AMD-1","Amendment 1","2026-02-20","NCT99004325-PS","Expanded eligibility to include ECOG performance status 2."
+"NCT99004401","AMD-1","Amendment 1","2026-03-10","NCT99004401-REN","Lowered the creatinine clearance threshold to 40 mL/min (CKD-EPI)."
+"NCT99004501","AMD-1","Amendment 1","2026-04-01","NCT99004501-BIO","Clarified HER2 amplification confirmation by in situ hybridization."
+"NCT99004601","AMD-1","Amendment 1","2026-03-28","NCT99004601-REN","Aligned creatinine clearance threshold to 45 mL/min (CKD-EPI)."
+"NCT99004603","AMD-1","Amendment 1","2026-04-12","NCT99004603-PS","Restricted enrollment to ECOG performance status 0-1."

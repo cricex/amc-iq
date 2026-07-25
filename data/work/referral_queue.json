@@ -1,0 +1,34 @@
+{
+  "queue_id": "RQ-THORACIC",
+  "owner": "COORD-01",
+  "entries": [
+    {
+      "patient_id": "PT-1042",
+      "display_name": "Alex Morgan",
+      "referring_provider": "Dr. Priya Anand",
+      "reason": "Evaluate for NCT99004324 EGFR exon 20 NSCLC trial; likely eligible pending repeat CrCl and PI confirmation.",
+      "status": "Awaiting screening",
+      "priority": "High",
+      "created_date": "2026-06-30"
+    },
+    {
+      "patient_id": "PT-1043",
+      "display_name": "Sam Carter",
+      "referring_provider": "Dr. Priya Anand",
+      "reason": "Review KRAS G12C trial options after tumor board discussion.",
+      "status": "New",
+      "priority": "Routine",
+      "created_date": "2026-07-01"
+    },
+    {
+      "patient_id": "PT-1045",
+      "display_name": "Taylor Brooks",
+      "referring_provider": "Dr. Priya Anand",
+      "reason": "Evaluate ALK-positive NSCLC study availability and line-of-therapy timing.",
+      "status": "Pending records",
+      "priority": "Routine",
+      "created_date": "2026-07-02"
+    }
+  ]
+}
+

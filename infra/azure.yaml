@@ -1,0 +1,42 @@
+name: amc-iq
+metadata:
+  template: amc-iq-foundry-iq-demo
+
+# This azure.yaml is intentionally located under infra/ to honor the authoring
+# boundary for this task. Run azd from this directory:
+#   cd infra
+#   azd up
+# Set AZURE_SUBSCRIPTION_ID and AZURE_RESOURCE_GROUP explicitly in the azd environment. Authentication
+# and live-resource coordinates are also supplied through that environment and consumed by
+# main.parameters.json. Bicep emits only public VITE_* values for the Static Web App build; the
+# confidential certificate is referenced from Key Vault and is never emitted as an output.
+infra:
+  provider: bicep
+  path: .
+  module: main
+
+# After provisioning, grant the app's managed identity Fabric workspace membership for live Fabric
+# IQ and Reader on the backing capacity for the UI status indicator. Workspace membership is a
+# Fabric REST call, not ARM, so it can't be in Bicep.
+hooks:
+  postprovision:
+    shell: pwsh
+    run: hooks/grant_app_identity_fabric.ps1
+    continueOnError: false
+
+services:
+  api:
+    project: ..
+    host: containerapp
+    language: python
+    resourceName: ${API_CONTAINER_APP_NAME}
+    docker:
+      path: services/api/Dockerfile
+      context: .
+      remoteBuild: true
+  web:
+    project: ..\apps\web
+    host: staticwebapp
+    language: ts
+    dist: dist
+    resourceName: ${STATIC_WEB_APP_NAME}
