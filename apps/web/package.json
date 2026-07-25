@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@azure/msal-browser": "^4.25.0",
-    "@azure/msal-react": "^3.0.23",
+    "@azure/msal-react": "^5.5.3",
     "lucide-react": "^1.23.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
