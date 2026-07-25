@@ -1,0 +1,51 @@
+[
+  {
+    "message_id": "MSG-20260701-1042-001",
+    "timestamp": "2026-07-01T09:12:00-04:00",
+    "from_id": "COORD-01",
+    "from_name": "Dana Whitfield",
+    "channel": "Thoracic Trials Coordination",
+    "text": "Flagging PT-1042 Alex Morgan from TB-2026-06-30 for NCT99004324. Biomarker and ECOG look aligned, but CrCl was 48 on 2026-06-18 against the >=50 threshold."
+  },
+  {
+    "message_id": "MSG-20260701-1042-002",
+    "timestamp": "2026-07-01T09:25:00-04:00",
+    "from_id": "NAV-01",
+    "from_name": "Morgan Lee",
+    "channel": "Thoracic Trials Coordination",
+    "text": "I can help coordinate repeat labs for PT-1042. Should we keep the referral in RQ-THORACIC as Awaiting screening until repeat CrCl is back?"
+  },
+  {
+    "message_id": "MSG-20260701-1042-003",
+    "timestamp": "2026-07-01T09:41:00-04:00",
+    "from_id": "COORD-01",
+    "from_name": "Dana Whitfield",
+    "channel": "Thoracic Trials Coordination",
+    "text": "Yes. I opened TASK-1042-CRCL due 2026-07-08 and will attach tumor board evidence to the NCT99004324 screening packet."
+  },
+  {
+    "message_id": "MSG-20260701-1042-004",
+    "timestamp": "2026-07-01T10:03:00-04:00",
+    "from_id": "COORD-01",
+    "from_name": "Dana Whitfield",
+    "channel": "Thoracic Trials Coordination",
+    "text": "Dr. Anand, can you confirm whether PT-1042's prior Carboplatin + Pemetrexed is permitted under the prior-platinum exclusion language for NCT99004324?"
+  },
+  {
+    "message_id": "MSG-20260701-1042-005",
+    "timestamp": "2026-07-01T10:28:00-04:00",
+    "from_id": "PI-01",
+    "from_name": "Dr. Priya Anand",
+    "channel": "Thoracic Trials Coordination",
+    "text": "Agree PT-1042 is likely eligible pending repeat CrCl. Please flag the renal threshold and send me the protocol excerpt on prior platinum before we finalize screening."
+  },
+  {
+    "message_id": "MSG-20260702-1042-006",
+    "timestamp": "2026-07-02T15:16:00-04:00",
+    "from_id": "NAV-01",
+    "from_name": "Morgan Lee",
+    "channel": "Thoracic Trials Coordination",
+    "text": "PT-1042 repeat CrCl coordination is in progress. I will notify COORD-01 when the lab appointment is confirmed."
+  }
+]
+

@@ -1,0 +1,44 @@
+[
+  {
+    "file": "clinicaltrials_NCT99004324.json",
+    "title": "Synthetic ClinicalTrials.gov-Style Record: NCT99004324",
+    "source_url": "https://clinicaltrials.gov/study/NCT99004324",
+    "source_type": "trial_registry",
+    "nct_id": "NCT99004324",
+    "synthetic": true,
+    "verified_unregistered_on": "2026-07-25"
+  },
+  {
+    "file": "clinicaltrials_NCT99004324.html",
+    "title": "Synthetic HTML Trial Snapshot: NCT99004324",
+    "source_url": "https://clinicaltrials.gov/study/NCT99004324",
+    "source_type": "trial_registry",
+    "nct_id": "NCT99004324",
+    "synthetic": true,
+    "verified_unregistered_on": "2026-07-25"
+  },
+  {
+    "file": "drug_label_style_carboplatin.md",
+    "title": "Synthetic Drug-Label-Style Summary: Carboplatin Renal Dosing Considerations",
+    "source_url": "https://amciq.example.invalid/web/drug-label-style/carboplatin",
+    "source_type": "drug_label",
+    "nct_id": null,
+    "synthetic": true
+  },
+  {
+    "file": "guideline_style_nsclc_egfr_exon20.md",
+    "title": "Synthetic Guideline-Style Summary: EGFR Exon 20 Insertion Metastatic NSCLC",
+    "source_url": "https://amciq.example.invalid/web/guideline-style/egfr-exon20",
+    "source_type": "guideline",
+    "nct_id": null,
+    "synthetic": true
+  },
+  {
+    "file": "evidence_abstract_egfr_exon20.md",
+    "title": "Synthetic Evidence Abstract: EGFR Exon 20 Insertion NSCLC Therapy",
+    "source_url": "https://amciq.example.invalid/web/evidence-style/egfr-exon20",
+    "source_type": "evidence",
+    "nct_id": null,
+    "synthetic": true
+  }
+]

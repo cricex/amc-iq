@@ -1,0 +1,1 @@
+"""AMC IQ FastAPI backend."""

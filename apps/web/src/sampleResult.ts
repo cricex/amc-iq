@@ -1,0 +1,195 @@
+import type { AskResult } from './types'
+
+export const heroQuestion =
+  'Is Alex Morgan eligible for the EGFR exon 20 NSCLC trial (NCT99004324), and what needs review before screening?'
+
+const coordinator = {
+  id: 'COORD-01',
+  display: 'Dana Whitfield',
+  role: 'Thoracic Oncology Trial Coordinator',
+}
+
+const pi = {
+  id: 'PI-01',
+  display: 'Dr. Priya Anand',
+  role: 'Principal Investigator',
+}
+
+export const sampleResult: AskResult = {
+  question: heroQuestion,
+  answer:
+    'Alex Morgan is likely eligible for NCT99004324 pending a repeat CrCl and PI confirmation. EGFR exon 20 insertion and ECOG 1 are met; the latest CrCl is 48 mL/min versus the 50 mL/min threshold, and prior first-line platinum needs PI confirmation. Next action: Dana Whitfield should coordinate a repeat CrCl and route the packet for PI review.',
+  answerRefs: ['r1', 'r2', 'r3'],
+  intent: 'eligibility',
+  scope: '',
+  bottomLine:
+    'This is a potential match, but formal screening should not proceed until repeat renal function and PI review are complete.',
+  patient: {
+    id: 'PT-1042',
+    mrn: 'MRN-0001042',
+    display: 'Alex Morgan',
+    age: 61,
+    sex: 'F',
+    ecog: 1,
+    diagnosis: 'Metastatic NSCLC (adenocarcinoma)',
+    stage: 'IV',
+    biomarkers: ['EGFR exon 20 insertion'],
+    crcl: 48,
+    crclDate: '2026-06-18',
+  },
+  eligibility: {
+    assessment: 'likely_eligible_pending',
+    label: 'Likely eligible, pending repeat CrCl and PI confirmation',
+    confidence: 'medium',
+  },
+  trial: {
+    id: 'NCT99004324',
+    short: 'EGFR exon 20 NSCLC trial',
+    status: 'Recruiting',
+    humanName: 'EGFR Exon 20 NSCLC Trial',
+    title: 'A Phase II Study of an EGFR Exon 20 Insertion-Directed Therapy in Advanced NSCLC',
+    phase: 'Phase 2',
+    sponsor: 'AMC Cancer Center',
+    keyIssue: 'Renal function threshold and prior therapy interpretation',
+    latestProtocol: 'Amendment 2',
+  },
+  criteria: [
+    { text: 'Documented EGFR exon 20 insertion', status: 'met', evidenceRefs: ['r1'] },
+    { text: 'ECOG performance status 0-1', status: 'met', evidenceRefs: ['r3'] },
+    { text: 'CrCl >= 50 mL/min (CKD-EPI)', status: 'uncertain', evidenceRefs: ['r3', 'r2'] },
+    { text: 'Prior platinum-based chemotherapy exclusion', status: 'uncertain', evidenceRefs: ['r2', 'r4'] },
+  ],
+  evidence: [
+    {
+      refId: 'r1',
+      source: 'foundry',
+      title: 'genomics report PT-1042',
+      snippet: 'EGFR exon 20 insertion (p.A767_V769dup) documented in the genomics report.',
+      url: '/api/evidence/doc?path=foundry_docs/genomics_report_PT-1042.md',
+      sourceType: 'genomics',
+    },
+    {
+      refId: 'r2',
+      source: 'foundry',
+      title: 'protocol amendment NCT99004324 a2',
+      snippet:
+        'Creatinine clearance must be >= 50 mL/min by CKD-EPI; prior first-line platinum is not automatically excluded but requires PI confirmation.',
+      url: '/api/evidence/doc?path=foundry_docs/protocol_amendment_NCT99004324_a2.md',
+      sourceType: 'protocol',
+    },
+    {
+      refId: 'r3',
+      source: 'fabric',
+      title: 'Fabric Data Agent: latest CrCl',
+      snippet: 'Latest CrCl 48 mL/min on 2026-06-18; prior 55 mL/min on 2026-05-20; ECOG 1.',
+      url: null,
+      sourceType: 'fabric_data_agent',
+    },
+    {
+      refId: 'r4',
+      source: 'work',
+      title: 'Thoracic Tumor Board Summary, 2026-06-30',
+      snippet:
+        'Tumor board notes metastatic NSCLC with EGFR exon 20 insertion; open repeat-CrCl task owned by Dana Whitfield.',
+      url: '/api/evidence/doc?path=work/tumor_board_summary_2026-06-30.md',
+      sourceType: 'workplace',
+    },
+    {
+      refId: 'r7',
+      source: 'web',
+      title: 'External web: EGFR exon 20 NSCLC treatment landscape',
+      snippet: 'External guidance on EGFR exon 20 insertion NSCLC standard of care and current options.',
+      url: 'https://www.jnccn.org',
+      sourceType: 'web',
+    },
+  ],
+  missingData: [
+    'Repeat CrCl (last 48 mL/min, below the 50 threshold)',
+    'PI confirmation on the prior-platinum exclusion (line of therapy)',
+  ],
+  nextAction: {
+    text: 'Order repeat CrCl and route the case to the thoracic oncology trial coordinator; attach the evidence summary and flag the renal threshold.',
+    steps: [
+      'Order repeat CrCl to confirm renal function',
+      'Route the case to the thoracic oncology trial coordinator',
+      'Add the evidence summary to the packet',
+      'Flag the renal threshold for PI review',
+    ],
+    owner: coordinator,
+    taskType: 'route_to_coordinator',
+    taskId: 'TASK-1042-CRCL',
+    taskStatus: 'Drafted (not submitted)',
+    due: 'Within 24 hours',
+  },
+  humanReview: {
+    owner: pi,
+    reason: 'Confirm prior-platinum exclusion interpretation',
+  },
+  reviewers: [
+    { role: 'Trial Coordinator', owner: coordinator, status: 'assigned' },
+    { role: 'PI Sign-Off', owner: pi, status: 'pending' },
+  ],
+  unavailableSources: [],
+  sourceMap: [
+    {
+      source: 'foundry',
+      label: 'Foundry IQ',
+      status: 'complete',
+      queries: ['EGFR exon 20 eligibility criteria', 'NCT99004324 renal threshold and prior platinum'],
+      citations: ['r1', 'r2'],
+      durationMs: 210,
+      retrieving: 'Protocol criteria, genomics report, pathology, consent policy',
+      evidenceCount: 4,
+      evidenceNoun: 'sources',
+      summary: 'Protocol and genomics evidence matched.',
+    },
+    {
+      source: 'fabric',
+      label: 'Fabric IQ',
+      status: 'complete',
+      queries: ['latest and prior CrCl for PT-1042'],
+      citations: ['r3'],
+      durationMs: 3200,
+      retrieving: 'Patient registry, CrCl trend, ECOG, treatment history',
+      evidenceCount: 6,
+      evidenceNoun: 'records',
+      summary: 'CrCl 48 on 2026-06-18; prior 55; ECOG 1.',
+    },
+    {
+      source: 'work',
+      label: 'Work IQ',
+      status: 'complete',
+      queries: ['tumor board PT-1042 owner', 'open tasks PT-1042'],
+      citations: ['r4'],
+      durationMs: 90,
+      retrieving: 'Open tasks, coordinator ownership, tumor board context',
+      evidenceCount: 2,
+      evidenceNoun: 'work items',
+      summary: 'Coordinator task is already open.',
+    },
+    {
+      source: 'web',
+      label: 'Web IQ',
+      status: 'complete',
+      queries: ['external standard of care: EGFR exon 20'],
+      citations: ['r7'],
+      durationMs: 1600,
+      retrieving: 'External trial registry and biomarker treatment context',
+      evidenceCount: 2,
+      evidenceNoun: 'sources',
+      summary: 'External treatment-landscape context returned.',
+    },
+  ],
+  trace: [
+    { step: 'Verified diagnosis and stage', source: 'fabric', detail: 'Loaded patient registry, ECOG, stage, and biomarkers.', ts: 0, status: 'completed' },
+    { step: 'Confirmed biomarker status', source: 'foundry', detail: 'EGFR exon 20 insertion documented in the genomics report.', ts: 1, status: 'completed' },
+    { step: 'Reviewed treatment history', source: 'fabric', detail: 'Prior first-line platinum doublet identified.', ts: 2, status: 'completed' },
+    { step: 'Checked renal function against protocol threshold', source: 'fabric', detail: 'Latest CrCl 48 mL/min vs 50 mL/min threshold.', ts: 3, status: 'in_progress' },
+    { step: 'Interpreted prior therapy exclusion language', source: 'foundry', detail: 'Amendment 2 allows prior first-line platinum with PI confirmation.', ts: 4, status: 'in_progress' },
+    { step: 'Checked institutional policy and consent', source: 'foundry', detail: 'IRB and consent policy require signed consent before study procedures.', ts: 5, status: 'pending' },
+    { step: 'Assessed care team workflow and ownership', source: 'work', detail: 'Open task owned by Dana Whitfield; tumor board recommends repeat CrCl and PI confirmation.', ts: 6, status: 'completed' },
+    { step: 'Prepared evidence summary and next action', detail: 'Mapped met, uncertain, and not-met criteria into a governed next action.', ts: 7, status: 'completed' },
+  ],
+  mode: 'mock',
+  disclaimer: 'Synthetic data. No PHI. Not clinical decision support.',
+}

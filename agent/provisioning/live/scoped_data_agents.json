@@ -1,0 +1,7 @@
+{
+  "_comment": "Public template only. Provisioning writes real IDs to ignored scoped_data_agents.local.",
+  "workflow_scheduling": {
+    "mcp": "https://api.fabric.microsoft.com/v1/mcp/workspaces/your-fabric-workspace-id/dataagents/your-data-agent-id/agent",
+    "id": "your-data-agent-id"
+  }
+}

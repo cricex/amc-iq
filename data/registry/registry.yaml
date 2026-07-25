@@ -1,0 +1,837 @@
+# Canonical demo-entity registry.
+# SINGLE SOURCE OF TRUTH for all synthetic identifiers used across the demo:
+# Foundry IQ docs, Fabric tables, Work IQ artifacts, Web IQ snapshots, and the UI.
+# Every generator/template/loader MUST import IDs and names from here, never hand-type them.
+#
+# Synthetic only. No PHI. Trial IDs use the out-of-range NCT99xxxxxx form so they cannot
+# collide with real ClinicalTrials.gov records.
+
+meta:
+  demo_today: "2026-07-06"        # fixed "now" for deterministic demos
+  timezone: "America/New_York"
+  disclaimer: "Synthetic data. No PHI. Not clinical decision support."
+
+sites:
+  - id: SITE-01
+    display: "AMC Thoracic Oncology Clinic"
+    short: "Thoracic Oncology"
+  - id: SITE-02
+    display: "AMC Breast Oncology Clinic"
+    short: "Breast Oncology"
+  - id: SITE-03
+    display: "AMC Solid Tumor Oncology Clinic"
+    short: "Solid Tumor Oncology"
+
+people:
+  - id: PI-01
+    display: "Dr. Priya Anand"
+    role: "Principal Investigator (Thoracic Oncology)"
+    site: SITE-01
+  - id: COORD-01
+    display: "Dana Whitfield"
+    role: "Thoracic Oncology Trial Coordinator"
+    site: SITE-01
+  - id: NAV-01
+    display: "Morgan Lee"
+    role: "Care Navigator"
+    site: SITE-01
+  - id: PI-02
+    display: "Dr. Helen Ramirez"
+    role: "Principal Investigator (Breast Oncology)"
+    site: SITE-02
+  - id: COORD-02
+    display: "Jordan Ellis"
+    role: "Breast Oncology Trial Coordinator"
+    site: SITE-02
+  - id: PI-03
+    display: "Dr. Marcus Bell"
+    role: "Principal Investigator (Solid Tumor Oncology)"
+    site: SITE-03
+  - id: COORD-03
+    display: "Priya Nair"
+    role: "Solid Tumor Oncology Trial Coordinator"
+    site: SITE-03
+
+# ---- HERO patient: the canonical public walkthrough scenario ----
+patients:
+  - id: PT-1042
+    mrn: "MRN-0001042"
+    display: "Alex Morgan"
+    hero: true
+    age: 61
+    sex: "F"
+    ecog: 1
+    diagnosis: "Metastatic non-small cell lung cancer (NSCLC), adenocarcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-04-15"
+    cancer_type: "NSCLC"
+    archetype: "borderline"
+    biomarkers:
+      - "EGFR exon 20 insertion"
+    key_labs:
+      crcl_ckd_epi: 48          # mL/min, the renal-threshold ambiguity
+      crcl_date: "2026-06-18"
+      crcl_prior: 55
+      crcl_prior_date: "2026-05-20"
+    prior_therapy:
+      - drug: "Carboplatin + Pemetrexed"
+        class: "Platinum doublet"
+        line: 1
+        best_response: "Partial response"
+        start_date: "2026-04-22"
+        end_date: "2026-06-12"
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  # ---- Distractor patients (make the search feel real) ----
+  - id: PT-1043
+    mrn: "MRN-0001043"
+    display: "Sam Carter"
+    hero: false
+    age: 67
+    sex: "M"
+    ecog: 2
+    diagnosis: "Metastatic NSCLC, adenocarcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-03-10"
+    cancer_type: "NSCLC"
+    archetype: "clear_eligible"
+    biomarkers: ["KRAS G12C"]
+    key_labs: { crcl_ckd_epi: 72, crcl_date: "2026-06-20", crcl_prior: 68, crcl_prior_date: "2026-05-22" }
+    prior_therapy:
+      - { drug: "Pembrolizumab", class: "PD-1 inhibitor", line: 1, best_response: "Stable disease", start_date: "2026-03-24", end_date: "" }
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1044
+    mrn: "MRN-0001044"
+    display: "Riley Chen"
+    hero: false
+    age: 58
+    sex: "F"
+    ecog: 1
+    diagnosis: "Extensive-stage small cell lung cancer (SCLC)"
+    diagnosis_icd10: "C34.10"
+    stage: "ES"
+    staging_date: "2026-05-02"
+    cancer_type: "SCLC"
+    archetype: "borderline"
+    biomarkers: []
+    key_labs: { crcl_ckd_epi: 88, crcl_date: "2026-06-22", crcl_prior: 84, crcl_prior_date: "2026-05-25" }
+    prior_therapy:
+      - { drug: "Carboplatin + Etoposide", class: "Platinum doublet", line: 1, best_response: "Partial response", start_date: "2026-05-08", end_date: "2026-06-19" }
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1045
+    mrn: "MRN-0001045"
+    display: "Taylor Brooks"
+    hero: false
+    age: 54
+    sex: "M"
+    ecog: 0
+    diagnosis: "Metastatic NSCLC, adenocarcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-06-01"
+    cancer_type: "NSCLC"
+    archetype: "treatment_naive_hold"
+    biomarkers: ["ALK fusion (EML4-ALK)"]
+    key_labs: { crcl_ckd_epi: 95, crcl_date: "2026-06-25", crcl_prior: 92, crcl_prior_date: "2026-05-28" }
+    prior_therapy: []
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  # ---- Extended cohort (spans cancer types, biomarkers, and eligibility archetypes) ----
+  - id: PT-1046
+    mrn: "MRN-0001046"
+    display: "Jesse Rivera"
+    hero: false
+    age: 63
+    sex: "M"
+    ecog: 1
+    diagnosis: "Metastatic NSCLC, squamous cell carcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-05-05"
+    cancer_type: "NSCLC squamous"
+    archetype: "clear_eligible"
+    biomarkers: ["PD-L1 high (TPS >= 50%)"]
+    key_labs: { crcl_ckd_epi: 68, crcl_date: "2026-06-15", crcl_prior: 71, crcl_prior_date: "2026-05-18" }
+    prior_therapy: []
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1047
+    mrn: "MRN-0001047"
+    display: "Robin Patel"
+    hero: false
+    age: 52
+    sex: "F"
+    ecog: 0
+    diagnosis: "Metastatic breast carcinoma, HER2-positive"
+    diagnosis_icd10: "C50.919"
+    stage: "IV"
+    staging_date: "2026-04-28"
+    cancer_type: "Breast HER2+"
+    archetype: "clear_eligible"
+    biomarkers: ["HER2 amplification"]
+    key_labs: { crcl_ckd_epi: 88, crcl_date: "2026-06-16", crcl_prior: 90, crcl_prior_date: "2026-05-19" }
+    prior_therapy: []
+    treating_oncologist: PI-02
+    coordinator: COORD-02
+    site: SITE-02
+
+  - id: PT-1048
+    mrn: "MRN-0001048"
+    display: "Casey Nguyen"
+    hero: false
+    age: 59
+    sex: "F"
+    ecog: 1
+    diagnosis: "Metastatic triple-negative breast carcinoma"
+    diagnosis_icd10: "C50.919"
+    stage: "IV"
+    staging_date: "2026-03-30"
+    cancer_type: "Breast TNBC"
+    archetype: "borderline"
+    biomarkers: ["BRCA1 mutation"]
+    key_labs: { crcl_ckd_epi: 75, crcl_date: "2026-06-17", crcl_prior: 78, crcl_prior_date: "2026-05-20" }
+    prior_therapy:
+      - { drug: "Doxorubicin + Cyclophosphamide", class: "Anthracycline regimen", line: 1, best_response: "Partial response", start_date: "2026-04-05", end_date: "2026-06-01" }
+    treating_oncologist: PI-02
+    coordinator: COORD-02
+    site: SITE-02
+
+  - id: PT-1049
+    mrn: "MRN-0001049"
+    display: "Avery Thompson"
+    hero: false
+    age: 64
+    sex: "F"
+    ecog: 1
+    diagnosis: "Metastatic breast carcinoma, hormone-receptor positive"
+    diagnosis_icd10: "C50.919"
+    stage: "IV"
+    staging_date: "2026-02-18"
+    cancer_type: "Breast HR+"
+    archetype: "biomarker_mismatch"
+    biomarkers: ["ER positive", "HER2 negative"]
+    key_labs: { crcl_ckd_epi: 70, crcl_date: "2026-06-19", crcl_prior: 69, crcl_prior_date: "2026-05-21" }
+    prior_therapy:
+      - { drug: "Letrozole + Palbociclib", class: "CDK4/6 inhibitor combination", line: 1, best_response: "Stable disease", start_date: "2026-02-25", end_date: "" }
+    treating_oncologist: PI-02
+    coordinator: COORD-02
+    site: SITE-02
+
+  - id: PT-1050
+    mrn: "MRN-0001050"
+    display: "Drew Foster"
+    hero: false
+    age: 55
+    sex: "M"
+    ecog: 1
+    diagnosis: "Metastatic colorectal adenocarcinoma, microsatellite instability-high"
+    diagnosis_icd10: "C18.9"
+    stage: "IV"
+    staging_date: "2026-03-15"
+    cancer_type: "Colorectal"
+    archetype: "clear_eligible"
+    biomarkers: ["MSI-H"]
+    key_labs: { crcl_ckd_epi: 80, crcl_date: "2026-06-14", crcl_prior: 83, crcl_prior_date: "2026-05-17" }
+    prior_therapy:
+      - { drug: "FOLFOX", class: "Fluoropyrimidine + platinum", line: 1, best_response: "Partial response", start_date: "2026-03-22", end_date: "2026-05-30" }
+    treating_oncologist: PI-03
+    coordinator: COORD-03
+    site: SITE-03
+
+  - id: PT-1051
+    mrn: "MRN-0001051"
+    display: "Reese Morgan"
+    hero: false
+    age: 61
+    sex: "M"
+    ecog: 1
+    diagnosis: "Metastatic colorectal adenocarcinoma, microsatellite stable"
+    diagnosis_icd10: "C18.9"
+    stage: "IV"
+    staging_date: "2026-04-02"
+    cancer_type: "Colorectal"
+    archetype: "biomarker_mismatch"
+    biomarkers: ["KRAS G12C", "MSS"]
+    key_labs: { crcl_ckd_epi: 66, crcl_date: "2026-06-13", crcl_prior: 70, crcl_prior_date: "2026-05-16" }
+    prior_therapy:
+      - { drug: "FOLFIRI", class: "Fluoropyrimidine + irinotecan", line: 2, best_response: "Stable disease", start_date: "2026-04-10", end_date: "" }
+    treating_oncologist: PI-03
+    coordinator: COORD-03
+    site: SITE-03
+
+  - id: PT-1052
+    mrn: "MRN-0001052"
+    display: "Quinn Alvarez"
+    hero: false
+    age: 48
+    sex: "F"
+    ecog: 0
+    diagnosis: "Metastatic cutaneous melanoma"
+    diagnosis_icd10: "C43.9"
+    stage: "IV"
+    staging_date: "2026-05-10"
+    cancer_type: "Melanoma"
+    archetype: "clear_eligible"
+    biomarkers: ["BRAF V600E"]
+    key_labs: { crcl_ckd_epi: 92, crcl_date: "2026-06-12", crcl_prior: 95, crcl_prior_date: "2026-05-15" }
+    prior_therapy: []
+    treating_oncologist: PI-03
+    coordinator: COORD-03
+    site: SITE-03
+
+  - id: PT-1053
+    mrn: "MRN-0001053"
+    display: "Sky Bennett"
+    hero: false
+    age: 70
+    sex: "M"
+    ecog: 1
+    diagnosis: "Metastatic cutaneous melanoma, BRAF wild-type"
+    diagnosis_icd10: "C43.9"
+    stage: "IV"
+    staging_date: "2026-03-25"
+    cancer_type: "Melanoma"
+    archetype: "biomarker_mismatch"
+    biomarkers: ["NRAS Q61K", "BRAF wild-type"]
+    key_labs: { crcl_ckd_epi: 58, crcl_date: "2026-06-11", crcl_prior: 61, crcl_prior_date: "2026-05-14" }
+    prior_therapy:
+      - { drug: "Nivolumab + Ipilimumab", class: "Checkpoint inhibitor combination", line: 1, best_response: "Progressive disease", start_date: "2026-03-30", end_date: "2026-05-28" }
+    treating_oncologist: PI-03
+    coordinator: COORD-03
+    site: SITE-03
+
+  - id: PT-1054
+    mrn: "MRN-0001054"
+    display: "Emerson Reed"
+    hero: false
+    age: 67
+    sex: "M"
+    ecog: 1
+    diagnosis: "Metastatic pancreatic adenocarcinoma"
+    diagnosis_icd10: "C25.9"
+    stage: "IV"
+    staging_date: "2026-02-28"
+    cancer_type: "Pancreatic"
+    archetype: "borderline"
+    biomarkers: ["BRCA2 mutation"]
+    key_labs: { crcl_ckd_epi: 62, crcl_date: "2026-06-10", crcl_prior: 66, crcl_prior_date: "2026-05-13" }
+    prior_therapy:
+      - { drug: "FOLFIRINOX", class: "Multi-agent chemotherapy", line: 1, best_response: "Partial response", start_date: "2026-03-05", end_date: "2026-05-25" }
+    treating_oncologist: PI-03
+    coordinator: COORD-03
+    site: SITE-03
+
+  - id: PT-1055
+    mrn: "MRN-0001055"
+    display: "Harper Diaz"
+    hero: false
+    age: 60
+    sex: "F"
+    ecog: 1
+    diagnosis: "Recurrent high-grade serous ovarian carcinoma"
+    diagnosis_icd10: "C56.9"
+    stage: "IV"
+    staging_date: "2026-01-20"
+    cancer_type: "Ovarian"
+    archetype: "borderline"
+    biomarkers: ["BRCA1 mutation"]
+    key_labs: { crcl_ckd_epi: 71, crcl_date: "2026-06-09", crcl_prior: 74, crcl_prior_date: "2026-05-12" }
+    prior_therapy:
+      - { drug: "Carboplatin + Paclitaxel", class: "Platinum doublet", line: 1, best_response: "Partial response", start_date: "2026-01-27", end_date: "2026-04-15" }
+    treating_oncologist: PI-03
+    coordinator: COORD-03
+    site: SITE-03
+
+  - id: PT-1056
+    mrn: "MRN-0001056"
+    display: "Rowan Clarke"
+    hero: false
+    age: 58
+    sex: "M"
+    ecog: 1
+    diagnosis: "Metastatic clear cell renal cell carcinoma"
+    diagnosis_icd10: "C64.9"
+    stage: "IV"
+    staging_date: "2026-04-08"
+    cancer_type: "RCC"
+    archetype: "borderline"
+    biomarkers: ["PD-L1 high (TPS >= 50%)"]
+    key_labs: { crcl_ckd_epi: 54, crcl_date: "2026-06-18", crcl_prior: 59, crcl_prior_date: "2026-05-20" }
+    prior_therapy: []
+    treating_oncologist: PI-03
+    coordinator: COORD-03
+    site: SITE-03
+
+  - id: PT-1057
+    mrn: "MRN-0001057"
+    display: "Sawyer Hughes"
+    hero: false
+    age: 72
+    sex: "M"
+    ecog: 2
+    diagnosis: "Metastatic castration-resistant prostate carcinoma"
+    diagnosis_icd10: "C61"
+    stage: "IV"
+    staging_date: "2026-02-05"
+    cancer_type: "Prostate"
+    archetype: "hard_excluded"
+    biomarkers: ["BRCA2 mutation"]
+    key_labs: { crcl_ckd_epi: 63, crcl_date: "2026-06-08", crcl_prior: 67, crcl_prior_date: "2026-05-11" }
+    prior_therapy:
+      - { drug: "Leuprolide (ADT)", class: "Androgen deprivation therapy", line: 1, best_response: "Stable disease", start_date: "2026-02-12", end_date: "" }
+      - { drug: "Abiraterone", class: "Androgen biosynthesis inhibitor", line: 2, best_response: "Stable disease", start_date: "2026-04-20", end_date: "" }
+    treating_oncologist: PI-03
+    coordinator: COORD-03
+    site: SITE-03
+
+  - id: PT-1058
+    mrn: "MRN-0001058"
+    display: "Finley Ross"
+    hero: false
+    age: 56
+    sex: "F"
+    ecog: 1
+    diagnosis: "Metastatic NSCLC, adenocarcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-05-16"
+    cancer_type: "NSCLC"
+    archetype: "treatment_naive_hold"
+    biomarkers: ["ROS1 fusion"]
+    key_labs: { crcl_ckd_epi: 84, crcl_date: "2026-06-21", crcl_prior: 86, crcl_prior_date: "2026-05-24" }
+    prior_therapy: []
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1059
+    mrn: "MRN-0001059"
+    display: "Kai Sanders"
+    hero: false
+    age: 62
+    sex: "F"
+    ecog: 1
+    diagnosis: "Metastatic NSCLC, adenocarcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-03-12"
+    cancer_type: "NSCLC"
+    archetype: "biomarker_mismatch"
+    biomarkers: ["RET fusion"]
+    key_labs: { crcl_ckd_epi: 77, crcl_date: "2026-06-23", crcl_prior: 80, crcl_prior_date: "2026-05-26" }
+    prior_therapy:
+      - { drug: "Carboplatin + Pemetrexed", class: "Platinum doublet", line: 1, best_response: "Partial response", start_date: "2026-03-18", end_date: "2026-05-20" }
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1060
+    mrn: "MRN-0001060"
+    display: "Elliot Ward"
+    hero: false
+    age: 65
+    sex: "M"
+    ecog: 2
+    diagnosis: "Metastatic NSCLC, adenocarcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-04-22"
+    cancer_type: "NSCLC"
+    archetype: "biomarker_mismatch"
+    biomarkers: ["MET exon 14 skipping"]
+    key_labs: { crcl_ckd_epi: 51, crcl_date: "2026-06-24", crcl_prior: 56, crcl_prior_date: "2026-05-27" }
+    prior_therapy: []
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1061
+    mrn: "MRN-0001061"
+    display: "Marlowe Price"
+    hero: false
+    age: 59
+    sex: "M"
+    ecog: 1
+    diagnosis: "Metastatic NSCLC, squamous cell carcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-03-08"
+    cancer_type: "NSCLC squamous"
+    archetype: "biomarker_mismatch"
+    biomarkers: ["PD-L1 low (TPS < 1%)"]
+    key_labs: { crcl_ckd_epi: 69, crcl_date: "2026-06-26", crcl_prior: 72, crcl_prior_date: "2026-05-29" }
+    prior_therapy:
+      - { drug: "Cisplatin + Gemcitabine", class: "Platinum doublet", line: 1, best_response: "Stable disease", start_date: "2026-03-15", end_date: "2026-05-18" }
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1062
+    mrn: "MRN-0001062"
+    display: "Blair Coleman"
+    hero: false
+    age: 53
+    sex: "F"
+    ecog: 1
+    diagnosis: "Metastatic NSCLC, adenocarcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-05-19"
+    cancer_type: "NSCLC"
+    archetype: "clear_eligible"
+    biomarkers: ["EGFR L858R"]
+    key_labs: { crcl_ckd_epi: 73, crcl_date: "2026-06-27", crcl_prior: 78, crcl_prior_date: "2026-05-30" }
+    prior_therapy: []
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1063
+    mrn: "MRN-0001063"
+    display: "Arden Fox"
+    hero: false
+    age: 57
+    sex: "F"
+    ecog: 3
+    diagnosis: "Metastatic NSCLC, adenocarcinoma"
+    diagnosis_icd10: "C34.90"
+    stage: "IV"
+    staging_date: "2026-02-14"
+    cancer_type: "NSCLC"
+    archetype: "hard_excluded"
+    biomarkers: ["EGFR exon 20 insertion"]
+    key_labs: { crcl_ckd_epi: 44, crcl_date: "2026-06-28", crcl_prior: 47, crcl_prior_date: "2026-05-31" }
+    prior_therapy:
+      - { drug: "Carboplatin + Pemetrexed", class: "Platinum doublet", line: 1, best_response: "Progressive disease", start_date: "2026-02-20", end_date: "2026-04-30" }
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1064
+    mrn: "MRN-0001064"
+    display: "Tatum Grant"
+    hero: false
+    age: 69
+    sex: "M"
+    ecog: 1
+    diagnosis: "Extensive-stage small cell lung cancer (SCLC)"
+    diagnosis_icd10: "C34.10"
+    stage: "ES"
+    staging_date: "2026-04-18"
+    cancer_type: "SCLC"
+    archetype: "borderline"
+    biomarkers: []
+    key_labs: { crcl_ckd_epi: 82, crcl_date: "2026-06-29", crcl_prior: 85, crcl_prior_date: "2026-06-01" }
+    prior_therapy:
+      - { drug: "Carboplatin + Etoposide", class: "Platinum doublet", line: 1, best_response: "Partial response", start_date: "2026-04-24", end_date: "2026-06-10" }
+    treating_oncologist: PI-01
+    coordinator: COORD-01
+    site: SITE-01
+
+  - id: PT-1065
+    mrn: "MRN-0001065"
+    display: "Sage Murphy"
+    hero: false
+    age: 51
+    sex: "F"
+    ecog: 1
+    diagnosis: "Metastatic breast carcinoma, HER2-positive"
+    diagnosis_icd10: "C50.919"
+    stage: "IV"
+    staging_date: "2026-03-05"
+    cancer_type: "Breast HER2+"
+    archetype: "borderline"
+    biomarkers: ["HER2 amplification"]
+    key_labs: { crcl_ckd_epi: 47, crcl_date: "2026-06-30", crcl_prior: 52, crcl_prior_date: "2026-06-02" }
+    prior_therapy:
+      - { drug: "Trastuzumab + Pertuzumab + Docetaxel", class: "Anti-HER2 therapy", line: 1, best_response: "Partial response", start_date: "2026-03-12", end_date: "2026-05-22" }
+    treating_oncologist: PI-02
+    coordinator: COORD-02
+    site: SITE-02
+
+  - id: PT-1066
+    mrn: "MRN-0001066"
+    display: "Lennox Bailey"
+    hero: false
+    age: 66
+    sex: "M"
+    ecog: 0
+    diagnosis: "Metastatic colorectal adenocarcinoma, microsatellite instability-high"
+    diagnosis_icd10: "C18.9"
+    stage: "IV"
+    staging_date: "2026-06-01"
+    cancer_type: "Colorectal"
+    archetype: "treatment_naive_hold"
+    biomarkers: ["MSI-H"]
+    key_labs: { crcl_ckd_epi: 90, crcl_date: "2026-07-01", crcl_prior: 93, crcl_prior_date: "2026-06-03" }
+    prior_therapy: []
+    treating_oncologist: PI-03
+    coordinator: COORD-03
+    site: SITE-03
+
+# ---- Trials ----
+trials:
+  # HERO trial: the one the scenario asks about (echoes OVERVIEW's "NCT-4324")
+  - id: NCT99004324
+    hero: true
+    short: "EGFR exon 20 NSCLC trial"
+    title: "A Phase II Study of an EGFR Exon 20 Insertion-Directed Therapy in Advanced NSCLC"
+    condition: "Metastatic NSCLC with EGFR exon 20 insertion"
+    cancer_type: "NSCLC"
+    phase: "Phase 2"
+    status: "Recruiting"
+    site: SITE-01
+    ecog_max: 1
+    crcl_min: 50
+    biomarker_required: "EGFR exon 20 insertion"
+    latest_protocol: "Amendment 2"
+    key_criteria:
+      inclusion:
+        - "Histologically confirmed metastatic NSCLC"
+        - "Documented EGFR exon 20 insertion"
+        - "ECOG performance status 0-1"
+      exclusion:
+        - "Ambiguous: prior platinum-based chemotherapy (see protocol amendment on line-of-therapy)"
+      renal_threshold:
+        # The deliberately ambiguous renal criterion driving the demo answer
+        text: "Creatinine clearance >= 50 mL/min (CKD-EPI)"
+        crcl_min: 50
+        note: "Hero patient CrCl 48 is just below threshold -> needs repeat lab + PI confirmation"
+    prior_therapy_exclusion:
+      drug_class: "Platinum doublet"
+      description: "Prior platinum-based chemotherapy for advanced or metastatic disease"
+      ambiguous: true
+    amendments:
+      - id: AMD-1
+        label: "Amendment 1"
+        effective_date: "2026-01-15"
+        modifies: "REN"
+        summary: "Clarified creatinine clearance must use the CKD-EPI equation on the most recent lab draw."
+      - id: AMD-2
+        label: "Amendment 2"
+        effective_date: "2026-05-01"
+        modifies: "RX"
+        summary: "Revised the prior-platinum exclusion to a line-of-therapy interpretation; prior first-line platinum may be permitted with PI confirmation."
+  # Distractor and cohort trials
+  - id: NCT99004325
+    hero: false
+    short: "KRAS G12C NSCLC trial"
+    title: "Phase Ib/II KRAS G12C Inhibitor in Previously Treated NSCLC"
+    condition: "Metastatic NSCLC with KRAS G12C"
+    cancer_type: "NSCLC"
+    phase: "Phase 1/2"
+    status: "Recruiting"
+    site: SITE-01
+    ecog_max: 2
+    crcl_min: 45
+    biomarker_required: "KRAS G12C"
+    latest_protocol: "Amendment 1"
+    prior_therapy_exclusion:
+      drug_class: "KRAS G12C inhibitor"
+      description: "Prior KRAS G12C-directed targeted therapy"
+      ambiguous: false
+    amendments:
+      - id: AMD-1
+        label: "Amendment 1"
+        effective_date: "2026-02-20"
+        modifies: "PS"
+        summary: "Expanded eligibility to include ECOG performance status 2."
+  - id: NCT99004326
+    hero: false
+    short: "ALK-positive NSCLC trial"
+    title: "Next-Generation ALK Inhibitor in Advanced ALK-positive NSCLC"
+    condition: "Metastatic NSCLC with ALK fusion"
+    cancer_type: "NSCLC"
+    phase: "Phase 2"
+    status: "Recruiting"
+    site: SITE-01
+    ecog_max: 2
+    crcl_min: 45
+    biomarker_required: "ALK fusion"
+    latest_protocol: "Original protocol"
+    prior_therapy_exclusion:
+      drug_class: "ALK inhibitor"
+      description: "Prior ALK-directed tyrosine kinase inhibitor"
+      ambiguous: false
+    amendments: []
+  - id: NCT99004401
+    hero: false
+    short: "ES-SCLC maintenance trial"
+    title: "Maintenance Immunotherapy in Extensive-Stage SCLC"
+    condition: "Extensive-stage SCLC"
+    cancer_type: "SCLC"
+    phase: "Phase 3"
+    status: "Active, not recruiting"
+    site: SITE-01
+    ecog_max: 1
+    crcl_min: 40
+    biomarker_required: ""
+    latest_protocol: "Amendment 1"
+    prior_therapy_exclusion:
+      drug_class: "Maintenance immunotherapy"
+      description: "Prior maintenance checkpoint inhibitor for extensive-stage SCLC"
+      ambiguous: false
+    amendments:
+      - id: AMD-1
+        label: "Amendment 1"
+        effective_date: "2026-03-10"
+        modifies: "REN"
+        summary: "Lowered the creatinine clearance threshold to 40 mL/min (CKD-EPI)."
+  - id: NCT99004402
+    hero: false
+    short: "EGFR L858R NSCLC trial"
+    title: "A Phase III Study of a Third-Generation EGFR Inhibitor in EGFR L858R NSCLC"
+    condition: "Metastatic NSCLC with EGFR L858R"
+    cancer_type: "NSCLC"
+    phase: "Phase 3"
+    status: "Recruiting"
+    site: SITE-01
+    ecog_max: 2
+    crcl_min: 45
+    biomarker_required: "EGFR L858R"
+    latest_protocol: "Original protocol"
+    prior_therapy_exclusion:
+      drug_class: "EGFR tyrosine kinase inhibitor"
+      description: "Prior EGFR-directed tyrosine kinase inhibitor"
+      ambiguous: false
+    amendments: []
+  - id: NCT99004501
+    hero: false
+    short: "HER2-positive breast trial"
+    title: "A Phase II Study of an Antibody-Drug Conjugate in HER2-positive Metastatic Breast Cancer"
+    condition: "HER2-positive metastatic breast cancer"
+    cancer_type: "Breast HER2+"
+    phase: "Phase 2"
+    status: "Recruiting"
+    site: SITE-02
+    ecog_max: 1
+    crcl_min: 50
+    biomarker_required: "HER2 amplification"
+    latest_protocol: "Amendment 1"
+    prior_therapy_exclusion:
+      drug_class: "Anti-HER2 antibody-drug conjugate"
+      description: "Prior anti-HER2 antibody-drug conjugate in the metastatic setting"
+      ambiguous: false
+    amendments:
+      - id: AMD-1
+        label: "Amendment 1"
+        effective_date: "2026-04-01"
+        modifies: "BIO"
+        summary: "Clarified HER2 amplification confirmation by in situ hybridization."
+  - id: NCT99004502
+    hero: false
+    short: "TNBC PARP inhibitor trial"
+    title: "A Phase III Study of a PARP Inhibitor in BRCA-mutated Triple-Negative Breast Cancer"
+    condition: "BRCA-mutated triple-negative metastatic breast cancer"
+    cancer_type: "Breast TNBC"
+    phase: "Phase 3"
+    status: "Recruiting"
+    site: SITE-02
+    ecog_max: 1
+    crcl_min: 50
+    biomarker_required: "BRCA1 mutation"
+    latest_protocol: "Original protocol"
+    prior_therapy_exclusion:
+      drug_class: "PARP inhibitor"
+      description: "Prior PARP inhibitor therapy"
+      ambiguous: false
+    amendments: []
+  - id: NCT99004601
+    hero: false
+    short: "MSI-H colorectal trial"
+    title: "A Phase II Study of Checkpoint Inhibition in MSI-High Metastatic Colorectal Cancer"
+    condition: "Microsatellite instability-high metastatic colorectal cancer"
+    cancer_type: "Colorectal"
+    phase: "Phase 2"
+    status: "Recruiting"
+    site: SITE-03
+    ecog_max: 1
+    crcl_min: 45
+    biomarker_required: "MSI-H"
+    latest_protocol: "Amendment 1"
+    prior_therapy_exclusion:
+      drug_class: "Checkpoint inhibitor combination"
+      description: "Prior checkpoint inhibitor therapy"
+      ambiguous: false
+    amendments:
+      - id: AMD-1
+        label: "Amendment 1"
+        effective_date: "2026-03-28"
+        modifies: "REN"
+        summary: "Aligned creatinine clearance threshold to 45 mL/min (CKD-EPI)."
+  - id: NCT99004602
+    hero: false
+    short: "BRAF V600E melanoma trial"
+    title: "A Phase II Study of BRAF/MEK Inhibition in BRAF V600E Metastatic Melanoma"
+    condition: "BRAF V600E metastatic melanoma"
+    cancer_type: "Melanoma"
+    phase: "Phase 2"
+    status: "Recruiting"
+    site: SITE-03
+    ecog_max: 1
+    crcl_min: 45
+    biomarker_required: "BRAF V600E"
+    latest_protocol: "Original protocol"
+    prior_therapy_exclusion:
+      drug_class: "BRAF inhibitor"
+      description: "Prior BRAF-directed targeted therapy"
+      ambiguous: false
+    amendments: []
+  - id: NCT99004603
+    hero: false
+    short: "Pan-tumor PD-L1 high trial"
+    title: "A Phase II Basket Study of Checkpoint Inhibition in PD-L1 High Solid Tumors"
+    condition: "PD-L1 high advanced solid tumors"
+    cancer_type: "Solid tumor"
+    phase: "Phase 2"
+    status: "Recruiting"
+    site: SITE-03
+    ecog_max: 1
+    crcl_min: 50
+    biomarker_required: "PD-L1 high (TPS >= 50%)"
+    latest_protocol: "Amendment 1"
+    prior_therapy_exclusion:
+      drug_class: "PD-1 inhibitor"
+      description: "Prior anti-PD-1 or anti-PD-L1 therapy"
+      ambiguous: false
+    amendments:
+      - id: AMD-1
+        label: "Amendment 1"
+        effective_date: "2026-04-12"
+        modifies: "PS"
+        summary: "Restricted enrollment to ECOG performance status 0-1."
+
+# ---- Work IQ workflow anchors (expanded in the work-iq phase) ----
+workflow:
+  tumor_board:
+    id: TB-2026-06-30
+    date: "2026-06-30"
+    display: "Thoracic Tumor Board, 2026-06-30"
+  referral_queue_id: "RQ-THORACIC"
+  open_task:
+    id: TASK-1042-CRCL
+    display: "Repeat CrCl for Alex Morgan (PT-1042) before NCT99004324 screening"
+    owner: COORD-01
+
+# ---- Expected demo answer (used for evaluation / talk-track alignment) ----
+expected_outcome:
+  patient: PT-1042
+  trial: NCT99004324
+  assessment: "Likely eligible pending repeat CrCl and PI confirmation"
+  missing_data: ["Repeat CrCl (last 48 mL/min, below 50 threshold)", "PI confirmation on prior-platinum exclusion"]
+  next_action: "Route to thoracic oncology trial coordinator (Dana Whitfield); attach evidence summary; flag renal threshold for review"
+  human_reviewer: COORD-01

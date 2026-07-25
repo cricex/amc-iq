@@ -1,0 +1,63 @@
+name: Live integration
+
+on:
+  workflow_dispatch:
+    inputs:
+      api_base_url:
+        description: Explicit HTTPS origin of the operator-owned API (no trailing slash)
+        required: true
+        type: string
+      run_fabric_probe:
+        description: Run the read-only Fabric Lakehouse Data Agent MCP probe
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: live-integration
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    name: Protected live smoke
+    runs-on: ubuntu-latest
+    environment: live-integration
+    env:
+      PYTHONPATH: services/api
+      API_BASE_URL: ${{ inputs.api_base_url }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: services/api/requirements.lock.txt
+      - name: Install probe dependencies
+        run: python -m pip install -r services/api/requirements.lock.txt
+      - name: Authenticate to Azure with OIDC
+        uses: azure/login@8c334a195cbb38e46038007b304988d888bf676a
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Check hosted API health
+        run: |
+          case "$API_BASE_URL" in
+            https://*) ;;
+            *) echo "api_base_url must be an explicit HTTPS origin" >&2; exit 2 ;;
+          esac
+          curl --fail --silent --show-error "$API_BASE_URL/healthz"
+          curl --fail --silent --show-error "$API_BASE_URL/api/fabric/status"
+      - name: Probe Fabric Data Agent MCP
+        if: ${{ inputs.run_fabric_probe }}
+        env:
+          FABRIC_WORKSPACE_ID: ${{ vars.FABRIC_WORKSPACE_ID }}
+          FABRIC_DATA_AGENT_ID: ${{ vars.FABRIC_DATA_AGENT_ID }}
+        run: |
+          test -n "$FABRIC_WORKSPACE_ID" || { echo "live-integration FABRIC_WORKSPACE_ID variable is required" >&2; exit 2; }
+          test -n "$FABRIC_DATA_AGENT_ID" || { echo "live-integration FABRIC_DATA_AGENT_ID variable is required" >&2; exit 2; }
+          python scripts/probe_fabric_mcp.py

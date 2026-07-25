@@ -1,0 +1,37 @@
+{
+  "pi_id": "PI-01",
+  "display_name": "Dr. Priya Anand",
+  "slots": [
+    {
+      "date": "2026-07-07",
+      "start": "09:00",
+      "end": "10:00",
+      "purpose": "Patient Reviews"
+    },
+    {
+      "date": "2026-07-07",
+      "start": "14:30",
+      "end": "15:00",
+      "purpose": "Protocol Clarifications"
+    },
+    {
+      "date": "2026-07-08",
+      "start": "08:30",
+      "end": "09:30",
+      "purpose": "Patient Reviews"
+    },
+    {
+      "date": "2026-07-09",
+      "start": "13:00",
+      "end": "14:00",
+      "purpose": "Patient Reviews"
+    },
+    {
+      "date": "2026-07-10",
+      "start": "11:00",
+      "end": "11:30",
+      "purpose": "Trial Screening Huddle"
+    }
+  ]
+}
+

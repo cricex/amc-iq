@@ -1,0 +1,85 @@
+# AMC IQ Foundry hosted-agent definition (declarative reference).
+#
+# NOTE: The verified, working way to create the agent is the Python script
+# `agent/provisioning/live/create_agent.py` (used by provision_all.ps1). That script
+# is authoritative. This YAML is kept as a human-readable reference of the intended
+# agent shape and the four IQ tools, for teams who prefer the `azd ai agent` manifest
+# flow. Model and tool availability are operator-selected; the live provisioning scripts are
+# authoritative.
+
+name: amciq-agent-eligibility
+description: Precision-oncology trial-eligibility assistant for the AMC IQ demo.
+kind: hosted
+protocol: responses
+
+model:
+  deployment: ${AGENT_MODEL}
+
+instructions:
+  file: ./instructions.md
+
+runtime:
+  projectEndpoint: ${AZURE_AI_PROJECT_ENDPOINT}
+  projectName: ${AZURE_AI_PROJECT_NAME}
+  foundryAccountName: ${AZURE_AI_FOUNDRY_ACCOUNT_NAME}
+  foundryResourceGroup: ${AZURE_AI_FOUNDRY_RESOURCE_GROUP}
+
+tools:
+  # Foundry IQ: Azure AI Search knowledge base MCP endpoint exposed through a
+  # project RemoteTool connection. The KB MCP server exposes `knowledge_base_retrieve`.
+  - name: foundry_iq
+    label: Foundry IQ
+    type: mcp
+    connection: ${FOUNDRY_KB_MCP_CONNECTION_NAME}
+    serverUrl: ${FOUNDRY_KB_MCP_ENDPOINT}
+    auth:
+      type: ProjectManagedIdentity
+      audience: https://search.azure.com/
+    allowedTools:
+      - knowledge_base_retrieve
+    requireApproval: never
+
+  # Preview/placeholder: Fabric Data Agent direct Foundry tool is OBO only.
+  - name: fabric_iq
+    label: Fabric IQ
+    type: fabric_dataagent_preview
+    enabled: ${USE_LIVE_FABRIC}
+    workspaceId: ${FABRIC_WORKSPACE_ID}
+    artifactId: ${FABRIC_DATA_AGENT_ARTIFACT_ID}
+    agentName: ${FABRIC_DATA_AGENT_NAME}
+    auth:
+      type: OnBehalfOf
+
+  # Placeholder: Web IQ is limited access, so the demo uses Bing/Web Search or a
+  # Foundry IQ web knowledge source when enabled.
+  - name: web_iq
+    label: Web IQ
+    type: web_search
+    enabled: ${USE_LIVE_WEB}
+    connection: ${WEB_SEARCH_CONNECTION_NAME}
+    allowedDomains:
+      - clinicaltrials.gov
+      - fda.gov
+
+  # Reference only: the production web path invokes Work IQ A2A through the FastAPI backend after
+  # OBO. Keep this manifest aligned for future hosted-agent delegation.
+  - name: work_iq
+    label: Work IQ
+    type: a2a
+    enabled: ${USE_LIVE_WORK}
+    serverUrl: ${WORK_IQ_ENDPOINT}
+    protocolVersion: "1.0"
+    auth:
+      type: delegated
+      scope: api://workiq.svc.cloud.microsoft/WorkIQAgent.Ask
+
+environment:
+  AZURE_SUBSCRIPTION_ID: ${AZURE_SUBSCRIPTION_ID}
+  AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+  AZURE_AI_SEARCH_SERVICE_NAME: ${AZURE_AI_SEARCH_SERVICE_NAME}
+  AZURE_AI_SEARCH_RESOURCE_GROUP: ${AZURE_AI_SEARCH_RESOURCE_GROUP}
+  AZURE_AI_SEARCH_INDEX_NAME: ${AZURE_AI_SEARCH_INDEX_NAME}
+  AZURE_AI_KNOWLEDGE_BASE_NAME: ${AZURE_AI_KNOWLEDGE_BASE_NAME}
+  USE_LIVE_FABRIC: ${USE_LIVE_FABRIC}
+  USE_LIVE_WORK: ${USE_LIVE_WORK}
+  USE_LIVE_WEB: ${USE_LIVE_WEB}

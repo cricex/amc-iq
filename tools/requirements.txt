@@ -1,0 +1,6 @@
+# Tooling dependencies for repo scripts (data validation, provisioning helpers).
+pyyaml>=6.0
+cyclonedx-bom>=7.1
+pip-audit>=2.9
+pip-licenses>=5.0
+pyright>=1.1

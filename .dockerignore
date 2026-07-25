@@ -1,0 +1,14 @@
+*
+!services/
+services/*
+!services/api/
+services/api/*
+!services/api/app/
+!services/api/app/**
+!services/api/requirements.txt
+!services/api/requirements.lock.txt
+!services/api/Dockerfile
+!data/
+!data/**
+**/__pycache__/
+**/*.pyc

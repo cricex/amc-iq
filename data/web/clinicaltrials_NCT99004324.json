@@ -1,0 +1,55 @@
+{
+  "source_url": "https://clinicaltrials.gov/study/NCT99004324",
+  "synthetic": true,
+  "verified_unregistered_on": "2026-07-25",
+  "nct_id": "NCT99004324",
+  "brief_title": "EGFR Exon 20 NSCLC Trial",
+  "official_title": "A Phase II Study of an EGFR Exon 20 Insertion-Directed Therapy in Advanced NSCLC",
+  "overall_status": "Recruiting",
+  "conditions": [
+    "Metastatic NSCLC with EGFR exon 20 insertion"
+  ],
+  "phase": "Phase 2",
+  "eligibility": {
+    "sex": "All",
+    "min_age": "18 Years",
+    "max_age": "N/A",
+    "criteria": {
+      "inclusion": [
+        "Histologically or cytologically confirmed metastatic non-small cell lung cancer (NSCLC).",
+        "Documented EGFR exon 20 insertion by a validated local or central molecular assay.",
+        "Measurable disease by RECIST-style radiographic assessment.",
+        "ECOG performance status of 0 or 1.",
+        "Adequate organ function, including creatinine clearance (CrCl) >= 50 mL/min calculated by CKD-EPI within the protocol-defined screening window."
+      ],
+      "exclusion": [
+        "Prior therapy with an investigational EGFR exon 20 insertion-directed agent.",
+        "Untreated or unstable central nervous system metastases requiring escalating corticosteroids.",
+        "Clinically significant intercurrent illness that would interfere with protocol therapy or safety monitoring.",
+        "Ambiguous prior-platinum language: patients who received prior platinum-based chemotherapy, including carboplatin plus pemetrexed, may be excluded unless the investigator confirms eligibility under the current line-of-therapy amendment."
+      ]
+    },
+    "healthy_volunteers": false
+  },
+  "arms_interventions": [
+    {
+      "arm_group_label": "Experimental: EGFR Exon 20-Directed Therapy",
+      "arm_group_type": "Experimental",
+      "description": "Participants receive a synthetic EGFR exon 20 insertion-directed therapy on 28-day cycles until disease progression, unacceptable toxicity, withdrawal, or completion of protocol therapy.",
+      "interventions": [
+        {
+          "type": "Drug",
+          "name": "Synthetic EGFR Exon 20-Directed Therapy"
+        }
+      ]
+    }
+  ],
+  "locations": [
+    {
+      "facility": "AMC Thoracic Oncology Clinic",
+      "city": "Demo City",
+      "state": "Example State"
+    }
+  ],
+  "last_update_posted": "2026-07-06"
+}

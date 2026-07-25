@@ -1,0 +1,223 @@
+# AMC IQ Ontology
+#
+# The semantic contract for the demo's clinical-trial domain: typed ENTITIES and the RELATIONSHIPS
+# between them. This is the portable, human-readable definition of the "Fabric ontology". It maps
+# directly onto:
+#   - the Fabric Lakehouse tables under data/fabric/ (one table per entity),
+#   - a Fabric semantic model / Graph (entities -> nodes, relationships -> edges), and
+#   - the Fabric-native eligibility engine (services/api/app/eligibility.py) for relationship-aware
+#     queries (NL2SQL over the Lakehouse + the Foundry evaluator; the old in-app ontology.py is retired).
+#
+# Everything here is SYNTHETIC. No PHI. Identifiers trace to data/registry/registry.yaml.
+#
+# Design goals:
+#   - Eligibility is RELATIONSHIP-AWARE: a Trial requires Criteria, and each Criterion references a
+#     concrete fact entity (Lab / Variant / Treatment / demographic), so "why is patient X blocked
+#     for trial Y" and "which patients are near-eligible for trial Y" are graph traversals, not ad hoc
+#     SQL.
+#   - Ground truth stays structured: agents reason/narrate over these entities, never invent them.
+
+meta:
+  name: amc-iq-oncology-ontology
+  version: 1
+  domain: precision-oncology-trial-readiness
+  source_of_truth: data/registry/registry.yaml
+  lakehouse_dir: data/fabric
+  disclaimer: "Synthetic data. No PHI. Not clinical decision support."
+
+# ---- Entity types (each maps to a Lakehouse table `table` and a graph node label) ----
+entities:
+  Site:
+    table: sites.csv
+    key: site_id
+    attributes: [display_name, short_name]
+
+  Person:
+    table: people.csv
+    key: person_id
+    attributes: [display_name, role, site_id]
+    note: Principal Investigators, coordinators, and navigators.
+
+  Patient:
+    table: patient_registry.csv
+    key: patient_id
+    attributes:
+      [mrn, display_name, sex, age, ecog_ps, primary_diagnosis, diagnosis_icd10, cancer_type,
+       stage, staging_date, treating_oncologist_id, coordinator_id, archetype]
+    note: >
+      `archetype` is the demo label for the eligibility story: clear_eligible, borderline,
+      hard_excluded, biomarker_mismatch, treatment_naive_hold.
+
+  Biomarker:
+    table: biomarkers.csv
+    key: [patient_id, marker]
+    attributes: [marker, gene, category, status, method, assessed_date]
+    note: One row per tested variant/marker for a patient (positive or negative).
+
+  Lab:
+    table: labs.csv
+    key: [patient_id, lab_date, lab_type]
+    attributes: [lab_date, lab_type, value, unit, ref_low, ref_high]
+    note: Longitudinal results; CrCl_CKD-EPI drives the renal criterion.
+
+  Treatment:
+    table: treatment_history.csv
+    key: [patient_id, line, drug_name]
+    attributes: [drug_name, drug_class, line, start_date, end_date, cycles_completed,
+                 best_response, reason_stopped]
+
+  Comorbidity:
+    table: comorbidities.csv
+    key: [patient_id, condition]
+    attributes: [condition, icd10, status, noted_date]
+
+  AdverseEvent:
+    table: adverse_events.csv
+    key: [patient_id, ae_id]
+    attributes: [ae_id, term, ctcae_grade, related_drug, onset_date, resolved_date, outcome]
+
+  RECISTAssessment:
+    table: recist_assessments.csv
+    key: [patient_id, assessment_date]
+    attributes: [assessment_date, timepoint, overall_response, target_lesion_sum_mm, method]
+    note: RECIST 1.1 timepoints (Baseline, then follow-ups).
+
+  Consent:
+    table: consent.csv
+    key: [patient_id, trial_id]
+    attributes: [trial_id, consent_status, consent_version, consent_date]
+
+  Trial:
+    table: trials.csv
+    key: trial_id
+    attributes: [short_title, condition, cancer_type, phase, status, site_id, ecog_max,
+                 crcl_min, biomarker_required, latest_protocol]
+
+  Criterion:
+    table: trial_criteria.csv
+    key: [trial_id, criterion_id]
+    attributes: [criterion_id, kind, category, description, references_entity, param, comparator, value]
+    note: >
+      kind = inclusion | exclusion. category = diagnosis | biomarker | performance | renal |
+      prior_therapy | hepatic | hematologic | consent. references_entity names the fact entity the
+      criterion evaluates (Lab, Biomarker, Treatment, Patient), enabling relationship-aware matching.
+
+  Amendment:
+    table: amendments.csv
+    key: [trial_id, amendment_id]
+    attributes: [amendment_id, label, effective_date, modifies_criterion_id, summary]
+
+  Enrollment:
+    table: trial_enrollment.csv
+    key: [patient_id, trial_id]
+    attributes: [trial_id, status, screening_date, coordinator_id, notes]
+    note: The patient-to-trial screening workflow edge (Pre-screening/Screening/Not enrolled/Enrolled).
+
+  Slot:
+    table: scheduling_slots.csv
+    key: slot_id
+    attributes: [site_id, slot_type, date, time, available, assigned_patient_id]
+
+  CoordinatorWorkload:
+    table: coordinator_workload.csv
+    key: coordinator_id
+    attributes: [display_name, open_screenings, pending_tasks, capacity_this_week]
+
+# ---- Relationships (typed edges; from -> to via the named foreign key) ----
+relationships:
+  - name: treated_by
+    from: Patient
+    to: Person
+    via: treating_oncologist_id
+  - name: coordinated_by
+    from: Patient
+    to: Person
+    via: coordinator_id
+  - name: has_biomarker
+    from: Patient
+    to: Biomarker
+    via: patient_id
+  - name: has_lab
+    from: Patient
+    to: Lab
+    via: patient_id
+  - name: on_treatment
+    from: Patient
+    to: Treatment
+    via: patient_id
+  - name: has_comorbidity
+    from: Patient
+    to: Comorbidity
+    via: patient_id
+  - name: had_adverse_event
+    from: Patient
+    to: AdverseEvent
+    via: patient_id
+  - name: has_recist
+    from: Patient
+    to: RECISTAssessment
+    via: patient_id
+  - name: gave_consent
+    from: Patient
+    to: Consent
+    via: patient_id
+  - name: screened_for
+    from: Patient
+    to: Trial
+    via: trial_enrollment
+    note: Realized by the Enrollment entity (association).
+  - name: requires_criterion
+    from: Trial
+    to: Criterion
+    via: trial_id
+  - name: criterion_references
+    from: Criterion
+    to: [Lab, Biomarker, Treatment, Patient]
+    via: references_entity
+    note: The fact entity/attribute a criterion evaluates; the heart of relationship-aware eligibility.
+  - name: has_amendment
+    from: Trial
+    to: Amendment
+    via: trial_id
+  - name: amendment_modifies
+    from: Amendment
+    to: Criterion
+    via: modifies_criterion_id
+  - name: trial_at_site
+    from: Trial
+    to: Site
+    via: site_id
+  - name: slot_at_site
+    from: Slot
+    to: Site
+    via: site_id
+  - name: slot_assigned_to
+    from: Slot
+    to: Patient
+    via: assigned_patient_id
+  - name: owns_screening
+    from: Person
+    to: Enrollment
+    via: coordinator_id
+
+# ---- Fabric mapping (LIVE) ----
+# This contract is now provisioned as a REAL Fabric IQ Ontology item (`amciq_oncology_ontology`,
+# type "Ontology") in the AMC IQ workspace, created via the Fabric REST API by
+# `agent/provisioning/live/provision_fabric_ontology.py`. Each entity type below is a Fabric ontology
+# entity type bound (NonTimeSeries) to its Delta table in the `amciq_fabric_oncology_clinical`
+# Lakehouse, and each relationship is a Fabric relationship type. The published Fabric Data Agent
+# consumes the ontology (NL2Ontology). This YAML remains the portable, human-readable source of
+# truth for Fabric Ontology provisioning.
+fabric_mapping:
+  ontology_item: "amciq_oncology_ontology (type Ontology); provisioned via provision_fabric_ontology.py"
+  lakehouse: "One delta table per entity (table name above); load via data/fabric/generate.py output."
+  semantic_model: >
+    Model relationships in a Fabric semantic model so the Data Agent(s) can answer relationship-aware
+    NL questions. Star-ish: Patient and Trial as hubs; Lab/Treatment/Biomarker/Enrollment as facts.
+  graph: >
+    Alternatively project entities/relationships into a Fabric Graph (property graph): nodes = entity
+    rows keyed by `key`, edges = relationships above. Enables path queries (patient -> criterion ->
+    trial) and GraphRAG-style retrieval.
+  data_agents: >
+    Scope multiple Data Agents to ontology neighborhoods: (1) labs/renal, (2) trials/criteria,
+    (3) workflow/scheduling. Clearer NL2SQL, parallelizable, less prompt overload.
