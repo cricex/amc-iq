@@ -13,7 +13,7 @@ const STEPS = [
   { title: 'Running parallel IQ retrieval', detail: 'Sending context requests to Foundry IQ, Fabric IQ, Work IQ, and Web IQ at the same time.' },
   { title: 'Matching patient facts to protocol criteria', detail: 'Mapping diagnosis, biomarker, ECOG, renal function, and prior therapy against the trial.' },
   { title: 'Detecting blockers and uncertainty', detail: 'Flagging values below threshold and language that needs human interpretation.' },
-  { title: 'Preparing governed next action', detail: 'Drafting the coordinator task, PI review, and evidence packet.' },
+  { title: 'Preparing governed next action', detail: 'Drafting the recommended next action, PI review request, and evidence packet.' },
   { title: 'Composing final assessment', detail: 'Producing a cited, human reviewed recommendation.' },
 ]
 

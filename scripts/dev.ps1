@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Launch the AMC IQ demo locally (FastAPI backend + React UI) in deterministic mock mode.
+  Launch the AMC IQ proof-of-concept locally (FastAPI backend + React UI) in deterministic mock mode.
 .DESCRIPTION
   Starts the backend on http://localhost:8000 and the Vite dev server on http://localhost:5173.
   No cloud or auth required, everything runs against the synthetic data/ package.

@@ -1,4 +1,4 @@
-# Fabric Lakehouse Demo Data Dictionary
+# Fabric Lakehouse Synthetic Data Dictionary
 
 Synthetic data only. No PHI. Identifiers align to `data/registry/registry.yaml` and the schema in
 `data/ontology/ontology.yaml`. All 16 tables are produced by `data/fabric/generate.py`.
@@ -22,7 +22,7 @@ One row per synthetic oncology patient.
 - mrn: Synthetic medical record number.
 - display_name: Synthetic display name.
 - sex: F or M.
-- age: Age in years for demo context.
+- age: Age in years for scenario context.
 - ecog_ps: ECOG performance status.
 - primary_diagnosis: Diagnosis label.
 - diagnosis_icd10: ICD-10 diagnosis code.

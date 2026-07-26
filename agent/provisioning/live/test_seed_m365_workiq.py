@@ -1,4 +1,4 @@
-"""Targeted tests for the Microsoft 365 Work IQ demo-content seeder.
+"""Targeted tests for the Microsoft 365 Work IQ proof-of-concept-content seeder.
 
 Coverage:
   * payload generation (deterministic subjects, required evidence tokens, transactionId, time zone),
@@ -411,7 +411,7 @@ def test_missing_calendar_event_uses_current_seed_reference() -> None:
     assert reference_date == date(2026, 7, 24)
 
 
-def test_workiq_answer_requires_all_demo_critical_evidence() -> None:
+def test_workiq_answer_requires_all_scenario_critical_evidence() -> None:
     ctx = _ctx()
     answer = (
         "For PT-1042 and NCT99004324, Dana Whitfield (COORD-01) owns TASK-1042-CRCL, "

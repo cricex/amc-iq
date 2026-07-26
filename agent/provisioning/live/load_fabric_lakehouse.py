@@ -26,7 +26,7 @@ CSV_DIR = Path(os.environ.get("CSV_DIR", "data/fabric"))
 ONELAKE = "https://onelake.dfs.fabric.microsoft.com"
 FABRIC = "https://api.fabric.microsoft.com/v1"
 
-# All 16 ontology entity tables (data/fabric/*.csv). The original demo loaded only the first 7;
+# All 16 ontology entity tables (data/fabric/*.csv). The original proof-of-concept loaded only the first 7;
 # the Fabric Ontology binds Criterion, Biomarker, Amendment, and the rest, so the full cohort is
 # loaded here. Idempotent: each table is loaded with mode Overwrite.
 TABLES = [

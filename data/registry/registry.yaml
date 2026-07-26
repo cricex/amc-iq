@@ -1,5 +1,5 @@
-# Canonical demo-entity registry.
-# SINGLE SOURCE OF TRUTH for all synthetic identifiers used across the demo:
+# Canonical synthetic-scenario registry.
+# SINGLE SOURCE OF TRUTH for all synthetic identifiers used across the scenario:
 # Foundry IQ docs, Fabric tables, Work IQ artifacts, Web IQ snapshots, and the UI.
 # Every generator/template/loader MUST import IDs and names from here, never hand-type them.
 #
@@ -7,7 +7,7 @@
 # collide with real ClinicalTrials.gov records.
 
 meta:
-  demo_today: "2026-07-06"        # fixed "now" for deterministic demos
+  scenario_today: "2026-07-06"        # fixed "now" for deterministic scenarios
   timezone: "America/New_York"
   disclaimer: "Synthetic data. No PHI. Not clinical decision support."
 
@@ -607,7 +607,7 @@ trials:
       exclusion:
         - "Ambiguous: prior platinum-based chemotherapy (see protocol amendment on line-of-therapy)"
       renal_threshold:
-        # The deliberately ambiguous renal criterion driving the demo answer
+        # The deliberately ambiguous renal criterion driving the scenario answer
         text: "Creatinine clearance >= 50 mL/min (CKD-EPI)"
         crcl_min: 50
         note: "Hero patient CrCl 48 is just below threshold -> needs repeat lab + PI confirmation"
@@ -827,7 +827,7 @@ workflow:
     display: "Repeat CrCl for Alex Morgan (PT-1042) before NCT99004324 screening"
     owner: COORD-01
 
-# ---- Expected demo answer (used for evaluation / talk-track alignment) ----
+# ---- Expected scenario answer (used for evaluation / talk-track alignment) ----
 expected_outcome:
   patient: PT-1042
   trial: NCT99004324

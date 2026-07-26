@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AMC IQ - Synthetic Precision-Oncology Demo</title>
+    <title>AMC IQ - Microsoft IQ Proof of Concept for a Research AMC</title>
     <meta
       name="description"
-      content="A personal, synthetic Microsoft IQ precision-oncology trial-readiness demo. No PHI. Not clinical decision support."
+      content="A synthetic proof of concept for a Microsoft IQ intelligence layer in a research academic medical center. Connected/live architecture first, deterministic local fallback, no PHI, and not clinical decision support."
     >
     <meta name="theme-color" content="#090c17">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="AMC IQ - Synthetic Precision-Oncology Demo">
+    <meta property="og:title" content="AMC IQ - Microsoft IQ Proof of Concept for a Research AMC">
     <meta
       property="og:description"
-      content="One clinical question, four intelligence layers, and a governed next step for human review."
+      content="Connected Microsoft IQ architecture for a research AMC with a reproducible local fallback and human-reviewed next steps."
     >
     <meta property="og:url" content="https://cricex.github.io/amc-iq/">
     <meta property="og:image" content="https://cricex.github.io/amc-iq/images/social-preview.png">
@@ -21,13 +21,13 @@
     <meta property="og:image:height" content="640">
     <meta
       property="og:image:alt"
-      content="AMC IQ synthetic trial-readiness demo with four intelligence layers and an assessment workflow."
+      content="AMC IQ proof-of-concept share card with connected Microsoft IQ architecture, deterministic local fallback, and an assessment workflow screenshot."
     >
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://cricex.github.io/amc-iq/images/social-preview.png">
     <meta
       name="twitter:image:alt"
-      content="AMC IQ synthetic trial-readiness demo with four intelligence layers and an assessment workflow."
+      content="AMC IQ proof-of-concept share card with connected Microsoft IQ architecture, deterministic local fallback, and an assessment workflow screenshot."
     >
     <link rel="canonical" href="https://cricex.github.io/amc-iq/">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -38,15 +38,21 @@
 
     <header class="site-header">
       <div class="container header-inner">
-        <a class="brand" href="./" aria-label="AMC IQ home">
+        <a class="brand" href="./" aria-label="AMC IQ proof-of-concept home">
           <span class="brand-mark" aria-hidden="true">IQ</span>
           <span>AMC IQ</span>
         </a>
-        <nav class="site-nav" aria-label="Primary navigation">
+        <nav class="site-nav" aria-label="AMC IQ proof-of-concept navigation">
           <a href="#intelligence">IQ layers</a>
           <a href="#experience">Experience</a>
           <a href="#boundaries">Boundaries</a>
-          <a class="nav-cta" href="https://github.com/cricex/amc-iq">View source</a>
+          <a
+            class="nav-cta"
+            href="https://github.com/cricex/amc-iq"
+            aria-label="View the AMC IQ proof-of-concept source on GitHub"
+          >
+            View source
+          </a>
         </nav>
       </div>
     </header>
@@ -54,30 +60,37 @@
     <main id="main-content">
       <section class="hero container">
         <div class="hero-copy">
-          <p class="eyebrow">Personal project / synthetic data only</p>
+          <p class="eyebrow">Proof of concept / synthetic data only</p>
           <h1>
-            One clinical question.
-            <span class="gradient-text">Four intelligence layers.</span>
-            One governed next step.
+            Connected Microsoft IQ architecture.
+            <span class="gradient-text">Research AMC proof of concept.</span>
+            Human review stays in control.
           </h1>
           <p class="hero-summary">
-            AMC IQ is a mock-first demonstration of Microsoft's IQ intelligence layer applied to
-            precision-oncology trial readiness. It brings institutional knowledge, structured
-            clinical data, care-team workflow, and external evidence into one cited assessment.
+            AMC IQ is a proof of concept for a Microsoft IQ intelligence layer in a research
+            academic medical center. The primary story is a connected/live architecture that brings
+            institutional knowledge, structured clinical data, care-team workflow, and external
+            evidence into one cited assessment. A deterministic local fallback remains available for
+            reproducible walkthroughs and repeatable testing.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="https://github.com/cricex/amc-iq">
+            <a
+              class="button button-primary"
+              href="https://github.com/cricex/amc-iq"
+              aria-label="Explore the AMC IQ proof-of-concept source on GitHub"
+            >
               Explore the source
             </a>
             <a
               class="button button-secondary"
               href="https://github.com/cricex/amc-iq/blob/main/docs/architecture.md"
+              aria-label="Read the AMC IQ proof-of-concept architecture"
             >
               Read the architecture
             </a>
           </div>
           <div class="safety-note" role="note">
-            <strong>Demonstration only.</strong>
+            <strong>Proof of concept only.</strong>
             This is not an official Microsoft product, reference architecture, or clinical
             solution. It uses synthetic data, contains no PHI, and is not clinical decision
             support.
@@ -88,23 +101,24 @@
           <div class="screen-shell">
             <div class="screen-toolbar" aria-hidden="true">
               <span></span><span></span><span></span>
-              <p>Building a governed assessment</p>
+              <p>Building a connected assessment</p>
             </div>
             <img
               src="images/building-assessment-workflow.png"
               width="1221"
               height="1002"
-              alt="AMC IQ interface with an editable free-text question, four IQ providers queued in parallel, and the Building Assessment workflow in progress."
+              alt="AMC IQ proof-of-concept interface with an editable free-text question, four IQ providers queued in parallel, and the Building Assessment workflow in progress."
             >
           </div>
           <figcaption>
             Start with a curated question-bank prompt, edit it, or type any free-form question.
-            The four IQ providers then retrieve evidence in parallel.
+            The four IQ providers then retrieve connected or deterministic fallback evidence in
+            parallel.
           </figcaption>
         </figure>
       </section>
 
-      <section class="metrics" aria-label="Demo facts">
+      <section class="metrics" aria-label="Proof-of-concept facts">
         <div class="container metrics-grid">
           <div><strong>4</strong><span>IQ context layers</span></div>
           <div><strong>25</strong><span>Synthetic patients</span></div>
@@ -116,7 +130,7 @@
       <section class="section container scenario-section">
         <p class="section-label">The scenario</p>
         <div class="scenario-grid">
-          <h2>A trial-readiness question that crosses data boundaries.</h2>
+          <h2>A research-AMC trial-readiness question that crosses data boundaries.</h2>
           <blockquote>
             "Patient with metastatic NSCLC, EGFR exon 20 insertion, prior platinum therapy, ECOG 1,
             CrCl 48. The open trial mentions renal thresholds and prior-therapy exclusions. Is the
@@ -124,14 +138,14 @@
           </blockquote>
         </div>
         <p class="section-intro">
-          A useful answer needs more than search. It must reconcile protocol language, patient facts,
-          institutional policy, current workflow, and public evidence while surfacing uncertainty
-          instead of hiding it.
+          A useful answer needs more than search. The proof of concept reconciles protocol
+          language, patient facts, institutional policy, current workflow, and public evidence
+          while surfacing uncertainty instead of hiding it.
         </p>
       </section>
 
       <section class="section container" id="intelligence">
-        <p class="section-label">Four layers, one assessment</p>
+        <p class="section-label">Four layers, one proof of concept</p>
         <h2 class="editorial-heading">
           Each source answers a different part of the question.
         </h2>
@@ -184,9 +198,9 @@
       </section>
 
       <section class="section container process-section">
-        <p class="section-label">How the answer is built</p>
+        <p class="section-label">How the proof of concept works</p>
         <div class="process-layout">
-          <h2 class="editorial-heading">Parallel retrieval. Explicit uncertainty. Human review.</h2>
+          <h2 class="editorial-heading">Connected retrieval. Explicit uncertainty. Human review.</h2>
           <ol class="process-list">
             <li>
               <span>01</span>
@@ -199,7 +213,10 @@
               <span>02</span>
               <div>
                 <strong>Retrieve in parallel</strong>
-                <p>Dispatch Foundry, Fabric, Work, and Web context requests concurrently.</p>
+                <p>
+                  Dispatch live or deterministic Foundry, Fabric, Work, and Web context requests
+                  concurrently.
+                </p>
               </div>
             </li>
             <li>
@@ -267,7 +284,7 @@
               open issues prominent, and assigns a next action without submitting a task or sending a
               message.
             </p>
-            <div class="status-stack" aria-label="Example output statuses">
+            <div class="status-stack" aria-label="Example proof-of-concept output statuses">
               <span>Potential match</span>
               <span>Not ready for screening</span>
               <span>Ready for PI review</span>
@@ -296,30 +313,32 @@
       </section>
 
       <section class="section container" id="boundaries">
-        <p class="section-label">Designed to be honest about its boundaries</p>
+        <p class="section-label">Designed to be honest about the proof-of-concept boundary</p>
         <div class="boundary-grid">
           <article>
             <span class="boundary-icon" aria-hidden="true">01</span>
-            <h3>Mock-first by default</h3>
+            <h3>Connected architecture first</h3>
             <p>
-              The complete local walkthrough runs against deterministic synthetic data without an
-              Azure account, authentication, or live service access.
+              The primary story is a connected Microsoft IQ architecture for a research AMC, with
+              live Foundry, Fabric, Work, and external evidence integrations where access exists.
             </p>
           </article>
           <article>
             <span class="boundary-icon" aria-hidden="true">02</span>
-            <h3>No automatic action</h3>
+            <h3>Deterministic local fallback</h3>
             <p>
-              Tasks are drafted, not submitted. No Planner item, To Do task, Teams message, or Work IQ
-              write is created by the application.
+              The full local walkthrough can run against deterministic synthetic data without an
+              Azure account, authentication, or live service access so the experience stays
+              reproducible.
             </p>
           </article>
           <article>
             <span class="boundary-icon" aria-hidden="true">03</span>
-            <h3>No clinical claim</h3>
+            <h3>Human review, no clinical claim</h3>
             <p>
-              The cohort, protocols, identities, and assessments are fictional. The demo is not
-              validated for patient care, trial enrollment, or clinical decision support.
+              Tasks remain drafted, not submitted, and the cohort, protocols, identities, and
+              assessments are fictional. AMC IQ is not validated for patient care, trial
+              enrollment, or clinical decision support.
             </p>
           </article>
         </div>
@@ -328,18 +347,24 @@
       <section class="cta-section">
         <div class="container cta-inner">
           <p class="section-label">Open, inspectable, reproducible</p>
-          <h2>Run the entire mock experience locally.</h2>
+          <h2>Inspect the connected architecture or run the reproducible local fallback.</h2>
           <p>
             The repository includes the React interface, FastAPI orchestration, synthetic cohort,
-            ontology, IQ adapters, provisioning scripts, tests, and architecture documentation.
+            ontology, IQ adapters, provisioning scripts, tests, and architecture documentation for
+            connected and deterministic local operation.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="https://github.com/cricex/amc-iq">
+            <a
+              class="button button-primary"
+              href="https://github.com/cricex/amc-iq"
+              aria-label="View the AMC IQ proof-of-concept repository on GitHub"
+            >
               View the repository
             </a>
             <a
               class="button button-secondary"
               href="https://github.com/cricex/amc-iq/blob/main/docs/limitations.md"
+              aria-label="Review AMC IQ proof-of-concept limitations"
             >
               Review limitations
             </a>
@@ -351,11 +376,11 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <div>
-          <a class="brand footer-brand" href="./">
+          <a class="brand footer-brand" href="./" aria-label="AMC IQ proof-of-concept home">
             <span class="brand-mark" aria-hidden="true">IQ</span>
             <span>AMC IQ</span>
           </a>
-          <p>Personal project. Synthetic data only. Not clinical decision support.</p>
+          <p>Personal proof of concept. Synthetic data only. Not clinical decision support.</p>
         </div>
         <div class="footer-links">
           <a href="https://github.com/cricex/amc-iq">GitHub</a>

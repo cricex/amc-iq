@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Provision the LIVE Foundry IQ layer for the AMC IQ demo, VERIFIED working 2026-07-06.
+  Provision the LIVE Foundry IQ layer for the AMC IQ proof-of-concept, VERIFIED working 2026-07-06.
 .DESCRIPTION
   Reproduces exactly what was provisioned and tested end-to-end:
     1. Storage account + container, upload data/foundry_docs/
@@ -39,7 +39,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 $root    = (Resolve-Path "$PSScriptRoot\..\..\..").Path
 $docsDir = Join-Path $root "data\foundry_docs"
-$tags    = @("project=amc-iq","demo=foundry-iq","env=demo")
+$tags    = @("project=amc-iq","scenario=foundry-iq","env=poc")
 
 function Search-Headers {
   $t = az account get-access-token --scope "https://search.azure.com/.default" --query accessToken -o tsv

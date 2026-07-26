@@ -38,9 +38,9 @@ export const questionLibrary: QuestionExample[] = [
   },
   {
     category: 'Workflow',
-    short: 'Who should own the next step and what task should be created?',
+    short: 'Who should own the next step and what action should be drafted?',
     prompt:
-      'For PT-1042 and NCT99004324, who should own the next step, and what task should be created?',
+      'For PT-1042 and NCT99004324, who should own the next step, and what action should be drafted for human review?',
   },
   {
     category: 'Protocol',

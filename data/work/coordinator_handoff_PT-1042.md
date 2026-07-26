@@ -1,6 +1,6 @@
 # Coordinator Handoff: PT-1042
 
-Synthetic care-team artifact for Microsoft Work IQ demo. No PHI.
+Synthetic care-team artifact for the Microsoft Work IQ proof of concept. No PHI.
 
 To: Dana Whitfield (COORD-01)  
 From: Prior thoracic coordinator coverage  
@@ -32,4 +32,3 @@ PT-1042 was discussed at the Thoracic Tumor Board on 2026-06-30 as a potential c
 ## Suggested next step
 
 Route to Dana Whitfield (COORD-01) as owner for repeat CrCl coordination due 2026-07-08, then package the tumor board note, lab evidence, and PI confirmation for NCT99004324 screening review.
-

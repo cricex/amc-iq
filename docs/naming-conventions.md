@@ -1,11 +1,11 @@
 # AMC IQ naming and consistency standard
 
-Use clear, operator-owned names and never commit subscription, tenant, workspace, application, or
-resource identifiers.
+Use clear, operator-owned names and never commit subscription, tenant, workspace, application,
+or resource identifiers.
 
 ## Resource names
 
-Use the prefix `amciq` for resources created by this project:
+Use the prefix `amciq` for resources created by this proof of concept:
 
 ```text
 amciq-<layer>-<purpose>[-<environment>]
@@ -34,7 +34,7 @@ All patient, trial, person, site, date, and key clinical identifiers are defined
 [`data/registry/registry.yaml`](../data/registry/registry.yaml). Generators and fixtures should load
 that registry rather than duplicate identifiers.
 
-Trial IDs use the project's `NCT99xxxxxx` demo range and must be rechecked against
+Trial IDs use the reserved project range `NCT99xxxxxx` and must be rechecked against
 ClinicalTrials.gov immediately before publication. See [`data/README.md`](../data/README.md).
 
 ## Consistency rules

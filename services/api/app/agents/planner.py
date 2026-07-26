@@ -1,6 +1,6 @@
 """Planner: decide which specialists to dispatch for a question, and their focus.
 
-Keeps the deterministic, auditable selection in code (rather than a black-box router) so the demo is
+Keeps the deterministic, auditable selection in code (rather than a black-box router) so the proof-of-concept is
 reproducible and the choice is explainable in the assessment trace.
 """
 from __future__ import annotations

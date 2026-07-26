@@ -18,7 +18,7 @@ synthetic: true
 
 # Thoracic Tumor Board: 2026-06-30
 
-Synthetic care-team artifact for Microsoft Work IQ demo. No PHI.
+Synthetic care-team artifact for the Microsoft Work IQ proof of concept. No PHI.
 
 ## Meeting summary
 

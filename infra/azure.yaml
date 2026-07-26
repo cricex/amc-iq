@@ -1,6 +1,6 @@
 name: amc-iq
 metadata:
-  template: amc-iq-foundry-iq-demo
+  template: amc-iq-foundry-iq-poc
 
 # This azure.yaml is intentionally located under infra/ to honor the authoring
 # boundary for this task. Run azd from this directory:

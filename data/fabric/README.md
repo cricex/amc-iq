@@ -1,6 +1,6 @@
 # Fabric Lakehouse tables (generated)
 
-Synthetic, internally consistent structured data for the AMC IQ demo. **Synthetic only. No PHI. Not
+Synthetic, internally consistent structured data for the AMC IQ proof of concept. **Synthetic only. No PHI. Not
 clinical decision support.** Every identifier traces back to `data/registry/registry.yaml`, and every
 table maps one-to-one to an entity in `data/ontology/ontology.yaml`.
 

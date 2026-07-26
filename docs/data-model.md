@@ -1,9 +1,12 @@
 # Data model
 
-The demo's structured layer is a deterministic, reproducible synthetic cohort stored as Fabric
-Lakehouse Delta tables (CSV source under `data/fabric/`). The schema is defined by the ontology
-in `data/ontology/ontology.yaml`; the generator in `data/fabric/generate.py` writes all 16 tables
-from that ontology and from `data/registry/registry.yaml`.
+The structured layer of this proof of concept is a deterministic, reproducible synthetic cohort
+stored as Fabric Lakehouse Delta tables, with CSV source under `data/fabric/`. The schema is
+defined by `data/ontology/ontology.yaml`, and `data/fabric/generate.py` writes all 16 tables from
+that ontology plus `data/registry/registry.yaml`.
+
+In connected mode, Fabric IQ queries this model through the Data Agent. In local and mock mode,
+the same tables drive deterministic offline evaluation.
 
 ## Entity graph
 
@@ -67,24 +70,23 @@ is a traversal from `Criterion` to the patient's concrete fact node, not an ad h
 
 ## Amendments contract (`amendments.csv`)
 
-Amendments carry `modifies_criterion_id`, which points to a `trial_criteria.criterion_id`. The
-mock eligibility evaluator (`eligibility.py`) uses this to convert an exclusion from `not_met` to
-`uncertain` when an amendment requires investigator confirmation instead of an automatic exclusion.
+Amendments carry `modifies_criterion_id`, which points to `trial_criteria.criterion_id`. The
+local eligibility evaluator uses this to convert an exclusion from `not_met` to `uncertain` when
+an amendment requires investigator confirmation instead of an automatic exclusion.
 
 **Hero mechanism:** `AMD-2` on trial `NCT99004324` modifies criterion `NCT99004324-RX` (prior
-platinum exclusion). The patient (`PT-1042`) has prior Carboplatin (line 1), so without the
-amendment the criterion is `not_met`. With the amendment it becomes `uncertain`, requiring PI
-confirmation.
+platinum exclusion). Patient `PT-1042` has prior Carboplatin (line 1), so without the amendment
+the criterion is `not_met`. With the amendment it becomes `uncertain`, requiring PI confirmation.
 
 ## Patient archetypes
 
-The 25 synthetic patients are assigned one of five archetypes that drive eligibility variation:
+The 25 synthetic patients are assigned one of five archetypes that drive eligibility variation.
 
 | Archetype | Behaviour |
 |---|---|
 | `clear_eligible` | All criteria met; advances to screening normally |
-| `borderline` | One or more criteria `uncertain` (e.g. CrCl near threshold) |
-| `hard_excluded` | One or more criteria `not_met` (e.g. wrong biomarker or prior therapy) |
+| `borderline` | One or more criteria `uncertain`, for example CrCl near threshold |
+| `hard_excluded` | One or more criteria `not_met`, for example wrong biomarker or prior therapy |
 | `biomarker_mismatch` | Required biomarker absent or different variant |
 | `treatment_naive_hold` | All criteria otherwise met, but prior-therapy sequencing needs PI confirmation |
 
@@ -94,8 +96,8 @@ The 25 synthetic patients are assigned one of five archetypes that drive eligibi
 
 - All `patient_id` foreign keys in every non-registry table resolve to `patient_registry`.
 - All `trial_id` foreign keys resolve to `trials`.
-- All `treating_oncologist_id` / `coordinator_id` resolve to `people` / `coordinator_workload`.
-- All `site_id` resolve to `sites`.
+- All `treating_oncologist_id` and `coordinator_id` resolve to `people` and `coordinator_workload`.
+- All `site_id` values resolve to `sites`.
 - Every `amendments.modifies_criterion_id` resolves to `trial_criteria`.
 - Every trial has at least one criterion.
 - Populated `scheduling_slots.assigned_patient_id` resolves to `patient_registry`.
@@ -108,18 +110,15 @@ The generator asserts these values before writing:
 |---|---|
 | Patient | `PT-1042` / *Alex Morgan* |
 | Diagnosis | Metastatic NSCLC, EGFR exon 20 insertion, ECOG 1 |
-| CrCl trajectory | 55 mL/min (2026-05-20) → 48 mL/min (2026-06-18) |
-| Trial | `NCT99004324`, CrCl threshold ≥ 50 mL/min |
+| CrCl trajectory | 55 mL/min (2026-05-20) -> 48 mL/min (2026-06-18) |
+| Trial | `NCT99004324`, CrCl threshold >= 50 mL/min |
 | Amendment | `AMD-2` modifies platinum exclusion to PI-confirmation required |
 | Expected verdict | `likely_eligible_pending` |
 
 ## Regenerate and validate
 
 ```powershell
-# Regenerate all 16 tables (deterministic, byte-identical output)
 .\.venv\Scripts\python data/fabric/generate.py
-
-# Validate referential integrity and hero rows
 .\.venv\Scripts\python tools/validate_consistency.py
 ```
 
@@ -129,6 +128,5 @@ The generator asserts these values before writing:
 GET /api/cohort/patients/{patient_id}/trials/{trial_id}/eligibility
 ```
 
-Returns a list of `CriterionResult` objects (`criterion`, `kind`, `category`, `description`,
-`status`, `evidence`) for any (patient, trial) pair in the cohort. Evaluated via Fabric-native
-services in live mode; via the deterministic mock evaluator offline.
+Returns a list of `CriterionResult` objects for any patient and trial pair in the cohort.
+Connected mode uses Fabric-native services; local mode uses the deterministic evaluator.

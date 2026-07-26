@@ -1,6 +1,6 @@
 # AMC IQ Ontology
 #
-# The semantic contract for the demo's clinical-trial domain: typed ENTITIES and the RELATIONSHIPS
+# The semantic contract for the scenario's clinical-trial domain: typed ENTITIES and the RELATIONSHIPS
 # between them. This is the portable, human-readable definition of the "Fabric ontology". It maps
 # directly onto:
 #   - the Fabric Lakehouse tables under data/fabric/ (one table per entity),
@@ -45,7 +45,7 @@ entities:
       [mrn, display_name, sex, age, ecog_ps, primary_diagnosis, diagnosis_icd10, cancer_type,
        stage, staging_date, treating_oncologist_id, coordinator_id, archetype]
     note: >
-      `archetype` is the demo label for the eligibility story: clear_eligible, borderline,
+      `archetype` is the scenario label for the eligibility story: clear_eligible, borderline,
       hard_excluded, biomarker_mismatch, treatment_naive_hold.
 
   Biomarker:

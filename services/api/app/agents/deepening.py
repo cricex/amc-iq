@@ -20,7 +20,7 @@ RunFn = Callable[[SpecialistName, SpecialistContext], SpecialistResult]
 
 @dataclass
 class Budget:
-    """Hard limits so deepening cannot run away. Defaults are demo-safe (one extra round, two leads)."""
+    """Hard limits so deepening cannot run away. Defaults are scenario-safe (one extra round, two leads)."""
 
     max_depth: int = 1
     max_leads: int = 2

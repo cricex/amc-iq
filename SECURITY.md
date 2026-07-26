@@ -20,13 +20,13 @@ Please do not include live credentials, real patient data, or PHI in a vulnerabi
 
 ## Supported versions
 
-This is a demonstration project without a formal release cadence. Only the current `main` branch
-is actively maintained.
+This repository is a research proof of concept without a formal release cadence. Treat the latest
+published branch tip as the maintained version.
 
 ## Response process
 
 The repository owner will acknowledge reports within a reasonable time and communicate a remediation
-plan or disclosure timeline. Because this is a personal demonstration project, response times may
+plan or disclosure timeline. Because this is a personal research proof of concept, response times may
 vary.
 
 ## Out of scope

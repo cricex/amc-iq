@@ -62,12 +62,12 @@ param(
   [switch]$IncludeFabric,         # also wire the Fabric Data Agent MCP tool onto the hosted agent
   [switch]$SkipFabricAssets,       # skip Lakehouse/Data Agent creation
   [switch]$IncludeSpecialists,     # also provision the 6 real Foundry specialist agents
-  [switch]$IncludeWorkIQSeed       # also provision the M365 seeder app and seed Work IQ demo content
+  [switch]$IncludeWorkIQSeed       # also provision the M365 seeder app and seed Work IQ proof-of-concept content
 )
 $ErrorActionPreference = "Stop"
 $repo   = (Resolve-Path "$PSScriptRoot\..\..\..").Path
 $py     = Join-Path $repo ".venv\Scripts\python.exe"
-$tags   = @("project=amc-iq","demo=foundry-iq","env=demo")
+$tags   = @("project=amc-iq","scenario=foundry-iq","env=poc")
 $searchEndpoint = "https://$SearchService.search.windows.net"
 az account set --subscription $Subscription | Out-Null
 if ($LASTEXITCODE -ne 0) {
@@ -319,7 +319,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "    evaluator provisioned" -ForegroundColor Green
 
 if ($IncludeWorkIQSeed) {
-  Write-Host "[13] Work IQ demo-content seed (dedicated M365 device-code seeder)" -ForegroundColor Cyan
+  Write-Host "[13] Work IQ proof-of-concept content seed (dedicated M365 device-code seeder)" -ForegroundColor Cyan
   Write-Host "    provisions the operator-selected least-privilege delegated Graph app and seeds synthetic mail/calendar/To Do" -ForegroundColor DarkGray
   if (-not $WorkIqSecurityGroupObjectId) {
     throw "-WorkIqSecurityGroupObjectId is required with -IncludeWorkIQSeed."
@@ -330,8 +330,8 @@ if ($IncludeWorkIQSeed) {
   & "$PSScriptRoot\provision_m365_workiq.ps1" `
     -AppName $WorkIqSeederAppName `
     -SecurityGroupObjectId $WorkIqSecurityGroupObjectId
-  if ($LASTEXITCODE -ne 0) { throw "Work IQ demo-content seeding failed with exit code $LASTEXITCODE." }
-  Write-Host "    work iq demo content seeded" -ForegroundColor Green
+  if ($LASTEXITCODE -ne 0) { throw "Work IQ proof-of-concept content seeding failed with exit code $LASTEXITCODE." }
+  Write-Host "    work iq proof-of-concept content seeded" -ForegroundColor Green
 }
 
 Write-Host "`nDONE. Live: Foundry IQ ($KbName), Web IQ ($WebKbName), agent $HostedAgentName." -ForegroundColor Green

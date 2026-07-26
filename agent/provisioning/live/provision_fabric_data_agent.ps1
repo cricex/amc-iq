@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Provision the LIVE Fabric IQ layer for the AMC IQ demo, VERIFIED working 2026-07-06.
+  Provision the LIVE Fabric IQ layer for the AMC IQ proof-of-concept, VERIFIED working 2026-07-06.
 .DESCRIPTION
   Creates, configures, and PUBLISHES a Fabric Data Agent entirely via REST (no GUI):
     1. Lakehouse `amciq_fabric_oncology_clinical` in the AMC IQ workspace

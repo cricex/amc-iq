@@ -7,7 +7,7 @@ synthetic: true
 
 # Synthetic Guideline-Style Summary: EGFR Exon 20 Insertion Metastatic NSCLC
 
-This original synthetic summary is written in a guideline-like style for demonstration. It does not reproduce NCCN, ASCO, ESMO, or other copyrighted guideline text and is not clinical decision support.
+This original synthetic summary is written in a guideline-like style for this proof-of-concept scenario. It does not reproduce NCCN, ASCO, ESMO, or other copyrighted guideline text and is not clinical decision support.
 
 ## Scope
 

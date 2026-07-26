@@ -1,4 +1,4 @@
-"""Deterministic Fabric Lakehouse table generator for the AMC IQ demo.
+"""Deterministic Fabric Lakehouse table generator for the AMC IQ proof-of-concept.
 
 This script reads the two portable contracts:
 

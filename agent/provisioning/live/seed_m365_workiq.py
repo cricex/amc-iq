@@ -1,4 +1,4 @@
-"""Seed synthetic Microsoft 365 Work IQ demo content for the AMC IQ care-team thread.
+"""Seed synthetic Microsoft 365 Work IQ proof-of-concept content for the AMC IQ care-team thread.
 
 This seeder signs in with the MSAL device-code flow as a real user (a dedicated public-client
 app registration), then writes searchable, synthetic workplace evidence into the signed-in
@@ -79,7 +79,7 @@ DELEGATED_SCOPES: tuple[str, ...] = (
 )
 
 # Deterministic, versioned subject stems. Bump the version to seed a fresh generation without
-# colliding with earlier demo content. Every write keys idempotency off these exact strings.
+# colliding with earlier seeded content. Every write keys idempotency off these exact strings.
 SUBJECT_VERSION = "v2"
 EMAIL_SUBJECT = (
     f"[AMC IQ Demo {SUBJECT_VERSION}] PT-1042 / NCT99004324 coordination: "
@@ -122,12 +122,12 @@ SELF_CHAT_MARKERS: tuple[str, ...] = (
 EVENT_TIME_ZONE = "Eastern Standard Time"
 
 SYNTHETIC_NOTICE = (
-    "Synthetic AMC IQ Work IQ demo content. No PHI. Not clinical decision support; "
-    "for demonstration and human review only."
+    "Synthetic AMC IQ Work IQ proof-of-concept content. No PHI. Not clinical decision support; "
+    "for scenario walkthrough and human review only."
 )
 
 # Stable synthetic clinical facts sourced from data/work (tumor board summary and coordinator
-# handoff). Kept as constants because they are fixed demo values, not live data.
+# handoff). Kept as constants because they are fixed scenario values, not live data.
 TUMOR_BOARD_ID = "TB-2026-06-30"
 CRCL_LAST_VALUE = 48
 CRCL_LAST_DATE = "2026-06-18"
@@ -1951,7 +1951,7 @@ def resolve_seed_reference_date(
 
 
 def validate_workiq_answer(text: str, ctx: SeedContext) -> dict[str, bool]:
-    """Require each demo-critical fact group in the synthesized Work IQ answer."""
+    """Require each scenario-critical fact group in the synthesized Work IQ answer."""
     normalized = " ".join(text.casefold().split())
     requirements: dict[str, tuple[str, ...]] = {
         "patient": (ctx.patient_id.casefold(),),
@@ -1986,7 +1986,7 @@ def validate_workiq_answer(text: str, ctx: SeedContext) -> dict[str, bool]:
 
 
 def verify_workiq_retrieval(access_token: str, ctx: SeedContext) -> dict[str, Any]:
-    """Query the GA Work IQ A2A endpoint and validate the seeded demo evidence."""
+    """Query the GA Work IQ A2A endpoint and validate the seeded proof-of-concept evidence."""
     api_root = Path(__file__).resolve().parents[3] / "services" / "api"
     api_root_text = str(api_root)
     if api_root_text not in sys.path:
@@ -2080,7 +2080,7 @@ def run_seed(
 # CLI
 # --------------------------------------------------------------------------------------------------
 def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Seed synthetic Microsoft 365 Work IQ demo content.")
+    parser = argparse.ArgumentParser(description="Seed synthetic Microsoft 365 Work IQ proof-of-concept content.")
     parser.add_argument("--tenant-id", default=os.environ.get("AMCIQ_SEED_TENANT_ID"), help="Entra tenant ID.")
     parser.add_argument("--client-id", default=os.environ.get("AMCIQ_SEED_CLIENT_ID"), help="Public-client app (application) ID.")
     parser.add_argument(

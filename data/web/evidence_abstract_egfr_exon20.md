@@ -7,9 +7,9 @@ synthetic: true
 
 # Synthetic Evidence Abstract
 
-**Synthetic record:** Demo Research Group. Activity of a fictional EGFR exon 20
+**Synthetic record:** Scenario Research Group. Activity of a fictional EGFR exon 20
 insertion-directed therapy in previously treated metastatic NSCLC. Record ID:
-`EVID-DEMO-0001`. This is not a published article or PubMed citation.
+`EVID-SYNTH-0001`. This is not a published article or PubMed citation.
 
 ## Abstract
 

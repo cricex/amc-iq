@@ -8,7 +8,7 @@
 # authoritative.
 
 name: amciq-agent-eligibility
-description: Precision-oncology trial-eligibility assistant for the AMC IQ demo.
+description: Precision-oncology trial-eligibility assistant for the AMC IQ proof-of-concept.
 kind: hosted
 protocol: responses
 
@@ -50,7 +50,7 @@ tools:
     auth:
       type: OnBehalfOf
 
-  # Placeholder: Web IQ is limited access, so the demo uses Bing/Web Search or a
+  # Placeholder: Web IQ is limited access, so the proof-of-concept uses Bing/Web Search or a
   # Foundry IQ web knowledge source when enabled.
   - name: web_iq
     label: Web IQ

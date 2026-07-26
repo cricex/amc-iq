@@ -3,7 +3,7 @@
 Deterministic specialist implementations whose clinical findings are derived from the Fabric-native
 eligibility evaluation (``app.eligibility.evaluate_eligibility``: Fabric Data Agent facts + the
 Foundry eligibility-evaluator agent). Non-eligibility context (coordinator ownership, candidate
-trials) is read from the canonical demo registry, the permitted local metadata source.
+trials) is read from the canonical synthetic registry, the permitted local metadata source.
 
 They give the whole multi-agent flow a stable spine: every eligibility specialist reads the same
 Fabric verdicts, so their findings agree and the Critic's ground truth matches. The live Foundry

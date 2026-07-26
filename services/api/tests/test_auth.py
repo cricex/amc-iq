@@ -133,7 +133,7 @@ def _configure_non_mock_environment(
         "API_REQUIRED_SCOPE": "access_as_user",
         "FABRIC_WORKSPACE_ID": "11111111-2222-3333-4444-555555555555",
         "FABRIC_DATA_AGENT_ID": "22222222-3333-4444-5555-666666666666",
-        "PROJECT_ENDPOINT": "https://operator-foundry.example.com/api/projects/demo",
+        "PROJECT_ENDPOINT": "https://operator-foundry.example.com/api/projects/poc",
         "ELIGIBILITY_EVALUATOR_AGENT": "eligibility-evaluator",
         "SEARCH_ENDPOINT": "https://operator-search.example.com",
         "FOUNDRY_KB_NAME": "operator-kb",

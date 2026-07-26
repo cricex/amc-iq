@@ -1,6 +1,8 @@
 # Frontend
 
-React + Vite + TypeScript single-page application. Source: `apps/web/`.
+React + Vite + TypeScript single-page application for the AMC IQ research proof of concept.
+In the connected topology it is the user surface for the live intelligence layer. Deterministic
+local and mock mode keeps the same workflow usable offline.
 
 ## Technology stack
 
@@ -9,7 +11,7 @@ React + Vite + TypeScript single-page application. Source: `apps/web/`.
 | Framework | React 19 |
 | Build / dev server | Vite 8 |
 | Language | TypeScript 6 |
-| Auth (optional) | `@azure/msal-react` + `@azure/msal-browser` |
+| Auth, optional | `@azure/msal-react` + `@azure/msal-browser` |
 | Icons | `lucide-react` |
 | Linting | `oxlint` |
 | Tests | `vitest` |
@@ -18,49 +20,51 @@ React + Vite + TypeScript single-page application. Source: `apps/web/`.
 
 ```
 apps/web/src/
-├── main.tsx              # Entry point; MSAL provider when Entra vars are set
-├── App.tsx               # Root component: state machine, SSE consumer, layout
-├── AuthenticatedApp.tsx  # Thin wrapper supplying the MSAL access-token getter
-├── authentication.ts     # AuthenticationContext + useAuthentication hook
-├── authentication.ts     # MSAL instance configuration
-├── types.ts              # All shared TypeScript types (IQSource, AskResult, StreamEvent, …)
-├── schemas.py            # (backend only, not used in frontend)
-├── questionLibrary.ts    # Pre-built question library (7 questions, 7 categories)
-├── sampleResult.ts       # Static fallback AskResult used when the backend is unavailable
-├── sourceMeta.ts         # IQ source labels, icons, CSS classes, retrieving text
-├── sentiment.ts          # Five-tone system (green/amber/red/blue/gray), glyph mapping
+├── main.tsx                 # Entry point
+├── App.tsx                  # Root component: state machine, SSE consumer, layout
+├── AuthenticatedApp.tsx     # Wraps the app in MsalProvider when Entra vars are set
+├── auth.tsx                 # MSAL instance configuration
+├── authentication.ts        # AuthenticationContext + useAuthentication hook
+├── types.ts                 # Shared TypeScript types
+├── questionLibrary.ts       # Pre-built question library
+├── sampleResult.ts          # Static fallback AskResult
+├── sourceMeta.ts            # IQ source labels, icons, CSS classes
+├── sentiment.ts             # Five-tone system and glyph mapping
 ├── api/
-│   ├── client.ts         # ask(), askStream(), getFabricStatus(), error helpers
-│   └── client.test.ts    # Vitest unit tests
+│   ├── client.ts            # ask(), askStream(), getFabricStatus(), helpers
+│   └── client.test.ts       # Vitest unit tests
 └── components/
-    ├── TopBar.tsx         # Page header with title and mode badge
-    ├── SideNav.tsx        # Left navigation with section jump links
-    ├── QuestionLibrary.tsx  # Filterable question panel
-    ├── IQActivityBar.tsx  # Four-source activity grid (idle / searching / done / failed)
-    ├── BuildingAssessment.tsx  # Live assessment trace (plan steps → completed)
-    ├── PatientSnapshot.tsx    # Patient summary card
-    ├── TrialCard.tsx          # Trial summary card
-    ├── AssessmentCard.tsx     # Intent-routed assessment (criteria, blockers, narrative)
-    ├── AssessmentSteps.tsx    # Trace timeline (multi-agent or standard steps)
-    ├── AssessmentFailureCard.tsx  # Degraded-mode error card
-    ├── StatusBanner.tsx       # Assessment verdict banner (tone-coded)
-    ├── StatusChip.tsx         # Reusable status chip (ToneMeta)
-    ├── CriteriaFindings.tsx   # Criteria met/uncertain/not-met cards
-    ├── BlockerCards.tsx       # Uncertain + not-met blockers highlighted
-    ├── BottomLineCard.tsx     # Bottom-line summary card
-    ├── NextActionCard.tsx     # Drafted next-action checklist with owner metadata
-    ├── CaseReviewCard.tsx     # Reviewer list (coordinator + PI sign-off)
-    ├── EvidencePacket.tsx     # Citation source table, expandable snippets
-    ├── FabricStatusChip.tsx   # Optional Fabric capacity state chip
-    ├── ActionRail.tsx         # 40% right column: bottom line, next action, review status
-    ├── ScopeCard.tsx          # Scope card for external-context intent
-    └── evidencePresentation.ts  # Citation URL/title helpers
+    ├── ActionRail.tsx
+    ├── AnswerBody.tsx
+    ├── AssessmentCard.tsx
+    ├── AssessmentCard.test.tsx
+    ├── AssessmentFailureCard.tsx
+    ├── AssessmentSteps.tsx
+    ├── BlockerCards.tsx
+    ├── BottomLineCard.tsx
+    ├── BuildingAssessment.tsx
+    ├── CaseReviewCard.tsx
+    ├── CriteriaFindings.tsx
+    ├── EmptyState.tsx
+    ├── EvidencePacket.tsx
+    ├── EvidencePacket.test.tsx
+    ├── FabricStatusChip.tsx
+    ├── IQActivityBar.tsx
+    ├── NextActionCard.tsx
+    ├── PatientSnapshot.tsx
+    ├── QuestionLibrary.tsx
+    ├── ScopeCard.tsx
+    ├── SideNav.tsx
+    ├── StatusBanner.tsx
+    ├── StatusChip.tsx
+    ├── TopBar.tsx
+    ├── TrialCard.tsx
+    └── evidencePresentation.ts
 ```
 
 ## State management
 
-`App.tsx` owns all UI state with `useState` and `useRef`. No external state library is used.
-Key state variables:
+`App.tsx` owns the UI state with `useState` and `useRef`. No external state library is used.
 
 | State | Type | Purpose |
 |---|---|---|
@@ -69,64 +73,62 @@ Key state variables:
 | `sourceMap` | `SourceMapEntry[]` | Live IQ source activity entries |
 | `trace` | `TraceStep[]` | Assessment steps timeline |
 | `phase` | `'idle' \| 'loading' \| 'done' \| 'error'` | Page phase |
-| `streamFailure` | `boolean` | SSE unavailable → use static endpoint fallback |
+| `streamFailure` | `boolean` | SSE unavailable, use static endpoint fallback |
 
 ## Authentication
 
-The app uses MSAL React (`@azure/msal-react`) when the three Vite environment variables
-(`VITE_ENTRA_TENANT_ID`, `VITE_ENTRA_CLIENT_ID`, `VITE_API_SCOPE`) are all non-empty.
+The app uses MSAL React when `VITE_ENTRA_TENANT_ID`, `VITE_ENTRA_CLIENT_ID`, and
+`VITE_API_SCOPE` are all non-empty.
 
-- When Entra variables are set: `AuthenticatedApp.tsx` wraps the app in `MsalProvider` and
-  supplies a delegated access-token getter via `AuthenticationContext`.
-- When Entra variables are absent (local mock mode, the default): `AuthenticationContext` provides
-  a no-op getter; the backend accepts anonymous requests because `APP_ENVIRONMENT=development` and
-  all live flags are `false`.
-- The SPA is a public client. Tokens are acquired silently then interactively. Bearer tokens are
-  attached as `Authorization: Bearer <token>` headers.
-- Credentialed cross-origin cookies are disabled; CORS permits only configured origins.
+- When Entra variables are set, `AuthenticatedApp.tsx` wraps the app in `MsalProvider` and
+  supplies a delegated access-token getter through `AuthenticationContext`.
+- When Entra variables are absent, local mode is the default, `AuthenticationContext` provides a
+  no-op getter and the backend can accept anonymous requests only when its local gate is open.
+- The SPA is a public client. Tokens are acquired silently, then interactively when needed, and
+  sent on API requests as delegated bearer authorization headers.
+- Credentialed cross-origin cookies are disabled. CORS allows only configured origins.
 
 ## API integration (`api/client.ts`)
 
 | Function | Description |
 |---|---|
-| `ask(question, patientId?, accessToken?)` | `POST /api/ask` → `AskResult` |
-| `askStream(question, patientId?, accessToken?, callbacks)` | `POST /api/ask/stream` → SSE events |
+| `ask(question, patientId?, accessToken?)` | `POST /api/ask` to `AskResult` |
+| `askStream(question, patientId?, accessToken?, callbacks)` | `POST /api/ask/stream` to SSE events |
 | `getFabricStatus()` | `GET /api/fabric/status` |
 | `shouldUseSampleFallback(result)` | Returns `true` when the result is obviously empty |
 | `decideStreamFailure(events)` | Returns `true` when SSE ended without a `final` event |
 
-`askStream` opens a `fetch` SSE connection, parses `event:` / `data:` pairs, and calls per-event
-callbacks to update `App.tsx` state incrementally.
+`askStream` opens a `fetch` SSE connection, parses `event:` and `data:` pairs, and calls
+per-event callbacks to update `App.tsx` incrementally.
 
 ## Streaming behaviour
 
-1. On submit: `phase = 'loading'`, source map reset to `queued`.
-2. `plan` event: assessment step labels appear in `BuildingAssessment`.
-3. `source_query` events (×4): IQ tiles switch to `searching`.
-4. `source_result` events (×4): tiles switch to `complete` (or `failed`) with evidence count.
-5. `agent_activity` events (optional): live agent tool-call ticker.
-6. `token` event: answer text rendered in `AssessmentCard`.
-7. `final` event: full `AskResult` rendered; `phase = 'done'`.
-8. On SSE failure: falls back to `POST /api/ask` (synchronous). If that also fails, renders
-   `sampleResult.ts` with `AssessmentFailureCard` to keep the hero scenario demoable offline.
+1. On submit, `phase = 'loading'` and the source map resets to `queued`.
+2. `plan` events show assessment step labels in `BuildingAssessment`.
+3. `source_query` events switch IQ tiles to `searching`.
+4. `source_result` events switch tiles to `complete` or `failed`, with evidence counts.
+5. `agent_activity` events, optional, show live agent tool-call activity.
+6. `token` events stream answer text into `AssessmentCard`.
+7. `final` events render the full `AskResult` and set `phase = 'done'`.
+8. On SSE failure, the app falls back to `POST /api/ask`. If that also fails, it renders
+   `sampleResult.ts` with `AssessmentFailureCard` so the hero scenario remains usable offline.
 
 ## Intent routing
 
-`AssessmentCard` maps `AskResult.intent` to a set of structured sections via `SECTIONS_BY_INTENT`:
+`AssessmentCard` maps `AskResult.intent` to structured sections through `SECTIONS_BY_INTENT`.
 
 | Intent | Sections rendered |
 |---|---|
-| `eligibility` | Summary banner → Criteria findings → Blockers → Narrative |
-| `screening` | Summary → Blockers → Criteria → Narrative |
-| `protocol` | Summary → Criteria → Blockers → Narrative |
-| `data_gaps` | Summary → Blockers → Narrative |
-| `workflow` | Summary → Narrative |
-| `evidence` | Summary → Criteria → Narrative |
-| `external_context` | Summary → Narrative (no criteria/blocker cards — never reads as an eligibility decision) |
+| `eligibility` | Summary banner -> Criteria findings -> Blockers -> Narrative |
+| `screening` | Summary -> Blockers -> Criteria -> Narrative |
+| `protocol` | Summary -> Criteria -> Blockers -> Narrative |
+| `data_gaps` | Summary -> Blockers -> Narrative |
+| `workflow` | Summary -> Narrative |
+| `evidence` | Summary -> Criteria -> Narrative |
+| `external_context` | Summary -> Narrative, no criteria or blocker cards |
 
-**The main assessment is never rendered as unrestricted model-generated Markdown.** The backend
-returns structured fields. The frontend maps them to: status banners, criteria cards, status chips,
-open-issue cards, next-action panels, review-status chips, evidence tables, and assessment workflow
+The main assessment is never rendered as unrestricted model-generated Markdown. The backend returns
+structured fields, and the frontend maps them into banners, cards, tables, chips, and workflow
 steps.
 
 ## Five-tone sentiment system (`sentiment.ts`)
@@ -139,39 +141,36 @@ steps.
 | `blue` | Blue | Informational / external | External context only |
 | `gray` | Gray | Neutral metadata | Drafted task, not submitted |
 
-Special exported constants: `NOT_SUBMITTED` (gray) for task status; `TASK_DRAFTED` (gray) for
-pre-submission tasks; `READY_FOR_PI_REVIEW` (amber) for review gating.
+Special exported constants: `NOT_SUBMITTED`, `TASK_DRAFTED`, and `READY_FOR_PI_REVIEW`.
 
 ## Question library
 
-`questionLibrary.ts` defines 7 curated questions across 7 categories (Trial Eligibility,
-Screening Check, Evidence, Workflow, Protocol, Data Gaps, External Context). `QuestionLibrary`
+`questionLibrary.ts` defines seven curated questions across seven categories: Trial Eligibility,
+Screening Check, Evidence, Workflow, Protocol, Data Gaps, and External Context. The component
 renders a filterable panel; selected questions populate the prompt bar.
 
 ## Safety indicators
 
-- Disclaimer footer on every assessment: *"Synthetic data. No PHI. Not clinical decision support.
-  Always follow institutional policies and clinical judgement."*
+- Disclaimer footer on every assessment: *"Synthetic data. No PHI. Not clinical decision support."*
 - `ActionRail.tsx` sidebar: *"Synthetic AMC sandbox. No PHI. Not clinical decision support.
   Requires clinician and PI review."*
-- `StatusBanner`: `likely_eligible_pending` renders as *"Potential match, not yet confirmed
-  eligible"* (never "eligible").
-- `NextActionCard`: task status always displays as *"NOT SUBMITTED"* (gray chip).
-- `external_context` intent never renders criteria or blocker cards.
+- `StatusBanner` renders `likely_eligible_pending` as *"Potential match, not yet confirmed
+  eligible"*, never simply *"eligible"*.
+- `NextActionCard` always displays *"NOT SUBMITTED"*.
+- `external_context` never renders criteria or blocker cards.
 
-## Demo fallback
+## Deterministic local fallback
 
-`sampleResult.ts` contains a static `AskResult` for the hero scenario (`PT-1042` / `NCT99004324`).
-The app renders it with `AssessmentFailureCard` when both SSE and the synchronous `/api/ask` are
-unavailable, keeping the UI demoable without a running backend.
+`sampleResult.ts` contains a static `AskResult` for the hero scenario, `PT-1042` and
+`NCT99004324`. The app uses it only after both SSE and synchronous backend calls fail.
 
 ## Build and test
 
 ```powershell
 cd apps/web
 npm ci
-npm run dev          # Vite dev server, http://localhost:5173
-npm run build        # TypeScript + Vite production build
-npm run lint         # oxlint (zero warnings required in CI)
-npm test             # vitest run
+npm run dev
+npm run build
+npm run lint
+npm test
 ```

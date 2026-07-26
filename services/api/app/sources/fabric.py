@@ -137,7 +137,7 @@ class LiveFabricIQ:
 
         try:
             answer = self._ask_data_agent(context)
-        except Exception as exc:  # keep the demo resilient; fall back to seed values
+        except Exception as exc:  # keep the proof-of-concept resilient; fall back to seed values
             facts["fabric_live"] = False
             facts["fabric_live_error"] = str(exc)
             return SourceResult(

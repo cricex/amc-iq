@@ -1,4 +1,4 @@
-"""Provision the REAL Fabric IQ Ontology for the AMC IQ demo (no GUI, pure REST).
+"""Provision the REAL Fabric IQ Ontology for the AMC IQ proof-of-concept (no GUI, pure REST).
 
 The Fabric IQ Ontology is a first-class Fabric item (type "Ontology") in the Fabric IQ (preview)
 workload. This script defines the precision-oncology domain ontology (typed entity types,
@@ -91,7 +91,7 @@ ENTITIES: dict[str, EntitySpec] = {
     "Patient": EntitySpec(
         "patient_registry", ("patient_id",), "display_name",
         "An oncology patient in the AMC IQ precision-oncology cohort, with demographics, diagnosis, "
-        "stage, ECOG performance status, care-team owners, and the demo eligibility archetype. The root of the "
+        "stage, ECOG performance status, care-team owners, and the scenario eligibility archetype. The root of the "
         "clinical-trial eligibility graph.",
         ("subject", "case", "individual"),
         {
@@ -108,7 +108,7 @@ ENTITIES: dict[str, EntitySpec] = {
             "staging_date": "Date the cancer stage was assigned.",
             "treating_oncologist_id": "person_id of the treating oncologist / principal investigator.",
             "coordinator_id": "person_id of the trial coordinator who owns this patient's screening tasks.",
-            "archetype": "Demo eligibility archetype: clear_eligible, borderline, hard_excluded, biomarker_mismatch, or treatment_naive_hold.",
+            "archetype": "Scenario eligibility archetype: clear_eligible, borderline, hard_excluded, biomarker_mismatch, or treatment_naive_hold.",
         },
     ),
     "Trial": EntitySpec(

@@ -1,11 +1,11 @@
-# Canonical Demo-Entity Registry
+# Canonical Scenario Entity Registry
 
-`registry.yaml` is the **single source of truth** for every synthetic identifier in the demo:
+`registry.yaml` is the **single source of truth** for every synthetic identifier in this scenario:
 patient IDs/MRNs, trial NCT IDs, people (PI, coordinator, navigator), sites, key dates, and the
 scenario-critical lab values (e.g. the hero patient's CrCl 48 vs the trial's ≥50 threshold).
 
 ## Why this exists
-The demo must feel like one coherent institution. The same hero patient (`PT-1042` / *Alex Morgan*),
+The scenario must feel like one coherent institution. The same hero patient (`PT-1042` / *Alex Morgan*),
 the same hero trial (`NCT99004324`), and the same coordinator (`COORD-01` / *Dana Whitfield*) must
 appear **identically** across:
 
@@ -21,9 +21,9 @@ scripts, and UI fixtures import from `registry.yaml`. Change an entity once here
 everywhere.
 
 ## Conventions
-- Trial IDs use the demo range `NCT99xxxxxx`. All current IDs returned HTTP 404 from the
+- Trial IDs use the synthetic range `NCT99xxxxxx`. All current IDs returned HTTP 404 from the
   ClinicalTrials.gov v2 study endpoint on 2026-07-25; recheck immediately before publication rather
   than assuming the range can never collide.
-- `meta.demo_today` fixes "now" (`2026-07-06`) so time-relative content is deterministic.
-- `expected_outcome` encodes the target demo answer, used to align the talk-track and (later)
+- `meta.scenario_today` fixes "now" (`2026-07-06`) so time-relative content is deterministic.
+- `expected_outcome` encodes the target scenario answer, used to align the talk-track and (later)
   automated evaluation.

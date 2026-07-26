@@ -1,7 +1,7 @@
-"""Consistency validator for the synthetic demo data package.
+"""Consistency validator for the synthetic proof-of-concept data package.
 
 Scans the generated content directories (data/foundry_docs, data/fabric, data/work,
-data/web) for demo identifiers and verifies every patient/trial ID that appears is
+data/web) for proof-of-concept identifiers and verifies every patient/trial ID that appears is
 defined in the canonical registry (data/registry/registry.yaml). Also confirms the
 hero patient and hero trial appear in every layer, and validates the generated Fabric
 entity tables for referential integrity, unchanged hero rows, and at least one
@@ -39,7 +39,7 @@ PT_RE = re.compile(r"\bPT-\d{4}\b")
 NCT_RE = re.compile(r"\bNCT\d{8}\b")
 URL_RE = re.compile(r'https?://[^\s"<>]+')
 
-# The hero facts the whole demo pivots on: they must never drift in the Fabric tables.
+# The hero facts the whole proof-of-concept pivots on: they must never drift in the Fabric tables.
 HERO_CRCL_SERIES = [("2026-05-20", "55"), ("2026-06-18", "48")]
 
 
@@ -174,7 +174,7 @@ def validate_synthetic_provenance(known_nct: set[str]) -> list[str]:
     for trial_id in known_nct:
         if not re.fullmatch(r"NCT99\d{6}", trial_id):
             problems.append(
-                f"[registry] trial {trial_id} is outside the documented NCT99 demo range"
+                f"[registry] trial {trial_id} is outside the documented NCT99 synthetic range"
             )
 
     for layer, directory in DATA_DIRS.items():

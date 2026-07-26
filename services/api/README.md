@@ -1,6 +1,6 @@
 # AMC IQ API
 
-FastAPI backend for the AMC IQ demo. The documented local walkthrough reads only the synthetic
+FastAPI backend for the AMC IQ proof of concept. The documented local walkthrough reads only the synthetic
 `data/` package and needs no cloud account or bearer token.
 
 ## Setup

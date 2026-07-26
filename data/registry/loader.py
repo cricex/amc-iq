@@ -1,7 +1,7 @@
-"""Canonical demo-entity registry loader.
+"""Canonical synthetic-scenario registry loader.
 
 `data/registry/registry.yaml` is the single source of truth for every synthetic
-identifier in the demo. Import from here; never hand-type IDs.
+identifier in the scenario. Import from here; never hand-type IDs.
 """
 from __future__ import annotations
 

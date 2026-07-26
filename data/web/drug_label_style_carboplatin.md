@@ -7,7 +7,7 @@ synthetic: true
 
 # Synthetic Drug-Label-Style Summary: Carboplatin Renal Dosing Considerations
 
-This is original synthetic prose for a demo snapshot. It is not an approved product label and must
+This is original synthetic prose for a proof-of-concept snapshot. It is not an approved product label and must
 not be used for patient care.
 
 ## Renal Function and Dose Individualization

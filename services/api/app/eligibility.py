@@ -53,7 +53,7 @@ class CriterionResult:
 
 # Per-(patient, trial) cache so a single request (orchestrator + specialist team + ground truth) does
 # not trigger several ~45s Fabric round trips for the same pair. The evaluation is deterministic for a
-# given cohort snapshot, so caching across requests is also acceptable for the demo.
+# given cohort snapshot, so caching across requests is also acceptable for the proof-of-concept.
 _cache: dict[tuple[str, str, str], list[CriterionResult]] = {}
 
 

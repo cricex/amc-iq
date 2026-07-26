@@ -1,6 +1,6 @@
 targetScope = 'resourceGroup'
 
-@description('Azure region for new demo resources.')
+@description('Azure region for new proof-of-concept resources.')
 param location string = resourceGroup().location
 
 @description('Tenant for Key Vault and managed-identity auth.')
@@ -119,8 +119,8 @@ param useLiveSpecialists bool = false
 @description('Tags applied to every taggable new resource.')
 param tags object = {
   project: 'amc-iq'
-  demo: 'foundry-iq'
-  env: 'demo'
+  scenario: 'foundry-iq'
+  env: 'poc'
 }
 
 var effectiveSearchEndpoint = empty(searchEndpoint) ? 'https://${existingSearchServiceName}.search.windows.net' : searchEndpoint

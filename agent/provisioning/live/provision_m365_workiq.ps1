@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Provision a dedicated device-code public client and seed synthetic Microsoft 365 Work IQ demo
+  Provision a dedicated device-code public client and seed synthetic Microsoft 365 Work IQ proof-of-concept
   content, idempotently and least privilege.
 .DESCRIPTION
   Prepares an explicitly named single-tenant public-client (device-code) app registration with no
@@ -270,7 +270,7 @@ if ($SkipSeeder) {
   Write-Host "[7] Seeder skipped (-SkipSeeder). App is provisioned." -ForegroundColor Yellow
 } else {
   if (-not (Test-Path $py)) { throw "Repo venv Python not found at $py. Create .venv and install services\api\requirements.txt." }
-  Write-Host "[7] Seeding Microsoft 365 demo content (device code only if the encrypted cache cannot refresh)" -ForegroundColor Cyan
+  Write-Host "[7] Seeding Microsoft 365 proof-of-concept content (device code only if the encrypted cache cannot refresh)" -ForegroundColor Cyan
   & $py "$PSScriptRoot\seed_m365_workiq.py" --tenant-id $Tenant --client-id $appId --data-dir $DataDir
   if ($LASTEXITCODE -ne 0) { throw "Seeder failed with exit code $LASTEXITCODE." }
   Write-Host "    seed complete" -ForegroundColor Green

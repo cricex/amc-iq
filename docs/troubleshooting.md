@@ -1,5 +1,7 @@
 # Troubleshooting
 
+Connected, live issues are listed first, followed by deterministic local and mock fallback issues.
+
 ## Backend will not start: `SettingsConfigurationError`
 
 **Symptom:** `SettingsConfigurationError: Live/production configuration is incomplete or still uses public placeholders: AZURE_TENANT_ID, ...`
@@ -7,10 +9,10 @@
 **Cause:** One or more live flags (`USE_LIVE_*`) are `true` but the required coordinates are
 missing or still hold `.example.invalid` placeholder values.
 
-**Fix (mock mode):** Ensure `APP_ENVIRONMENT=development` and all six live flags are `false`.
-Use `scripts/dev.ps1` which sets this automatically.
+**Fix (local mode):** Ensure `APP_ENVIRONMENT=development` and all six live flags are `false`.
+Use `scripts/dev.ps1`, which sets this automatically.
 
-**Fix (live mode):** Fill in every required variable listed in the error message. See
+**Fix (connected mode):** Fill in every required variable listed in the error message. See
 [`docs/configuration.md`](configuration.md) for the flag routing matrix.
 
 ---
@@ -20,7 +22,7 @@ Use `scripts/dev.ps1` which sets this automatically.
 **Symptom:** The `/api/ask` route requires a bearer token even though you are running locally.
 
 **Cause:** `APP_ENVIRONMENT` is not set to one of `development`, `dev`, `local`, or `test`,
-**or** at least one live flag is `true`.
+or at least one live flag is `true`.
 
 **Fix:** Set `APP_ENVIRONMENT=development` and ensure all `USE_LIVE_*` flags are `false`. Check
 for a `.env` file in `services/api/` that overrides the defaults.
@@ -48,8 +50,8 @@ Allow 2–5 minutes for the capacity to reach Active state before retrying.
 **Cause:** The `message.content` field may not be in the required array-of-parts format, or the
 `api-version` is wrong.
 
-**Fix:** Confirm `SEARCH_API_VERSION=2026-05-01-preview`. The `LiveFoundryIQ` and `LiveWebIQ`
-adapters already send `content` as `[{"type":"text","text":"..."}]`; verify no middleware is
+**Fix:** Confirm `SEARCH_API_VERSION=2026-05-01-preview`. `LiveFoundryIQ` and `LiveWebIQ`
+already send `content` as `[{"type":"text","text":"..."}]`; verify no middleware is
 rewriting the body.
 
 ---
@@ -77,30 +79,30 @@ certificate in Key Vault is missing or expired.
 
 **Cause:** The API's `CORS_ORIGINS` does not include the origin where the UI is running.
 
-**Fix:** Add the frontend origin (e.g. `http://localhost:5173`) to `CORS_ORIGINS` in the backend
-environment. `scripts/dev.ps1` sets this automatically to match the Vite port.
+**Fix:** Add the frontend origin, for example `http://localhost:5173`, to `CORS_ORIGINS` in the
+backend environment. `scripts/dev.ps1` sets this automatically to match the Vite port.
 
 ---
 
-## Mock mode: data validation errors
+## Local mode: data validation errors
 
 **Symptom:** `tools/validate_consistency.py` exits with non-zero; or `pytest` reports fixture
-errors about missing patient/trial IDs.
+errors about missing patient or trial IDs.
 
 **Cause:** The Fabric CSV tables are out of sync with `data/registry/registry.yaml`, or the
 hero rows were accidentally changed.
 
 **Fix:**
 ```powershell
-.\.venv\Scripts\python data/fabric/generate.py        # regenerate tables
-.\.venv\Scripts\python tools/validate_consistency.py  # re-check (should exit 0)
+.\.venv\Scripts\python data/fabric/generate.py
+.\.venv\Scripts\python tools/validate_consistency.py
 ```
 
 ---
 
 ## `data/web/` MockWebIQ raises `ValueError: Bundled Web IQ fixtures must be explicitly marked synthetic`
 
-**Symptom:** The mock Web IQ adapter throws a `ValueError`.
+**Symptom:** The local Web IQ adapter throws a `ValueError`.
 
 **Cause:** A fixture file in `data/web/` is missing `"synthetic": true` in either the
 `manifest.json` entry or the fixture JSON file itself.
@@ -114,8 +116,7 @@ fixture if it was accidentally added.
 
 **Symptom:** CI fails on the `Check patch whitespace` step.
 
-**Cause:** A commit introduced trailing whitespace, mixed line endings, or a blank line at
-end-of-file.
+**Cause:** A commit introduced trailing whitespace, mixed line endings, or a blank line at end of file.
 
 **Fix:** Run `git diff --check` locally and fix the flagged lines.
 
@@ -125,10 +126,10 @@ end-of-file.
 
 **Symptom:** `http://localhost:5173` shows a blank page or console errors about missing env vars.
 
-**Cause (common):** Entra variables (`VITE_ENTRA_*`) are partially set (some set, some empty).
+**Cause (common):** Entra variables (`VITE_ENTRA_*`) are partially set, some set, some empty.
 
 **Fix:** Either set all three Entra variables or set none of them. `scripts/dev.ps1` sets all
-three to empty, which correctly triggers the unauthenticated mock path.
+three to empty, which correctly triggers the unauthenticated local path.
 
 ---
 

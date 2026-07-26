@@ -2,10 +2,10 @@
 .SYNOPSIS
   Tear down the AMC IQ live environment (for a clean rebuild). Idempotent.
 .DESCRIPTION
-  Removes the AMC IQ demo resources:
+  Removes the AMC IQ proof-of-concept resources:
     - Azure AI Search (operator-selected shared service; only explicitly named KBs/KS/index are deleted)
     - Fabric items in the workspace (Data Agent + Lakehouse), SHARED workspace, only amciq_* items
-    - The explicitly selected resource group contents created by the demo
+    - The explicitly selected resource group contents created by the proof-of-concept
 
   Auth: your `az` login. Use -DeleteResourceGroup to remove the explicitly selected resource group.
 #>
@@ -65,7 +65,7 @@ if ($DeleteResourceGroup) {
   Write-Host "    deleting resource group $ResourceGroup (Foundry + storage) ..." -ForegroundColor Yellow
   az group delete -n $ResourceGroup --yes --no-wait | Out-Null
 } else {
-  # Delete the explicitly named demo project and storage while preserving a potentially shared
+  # Delete the explicitly named proof-of-concept project and storage while preserving a potentially shared
   # Foundry account unless the operator separately confirms account deletion.
   az cognitiveservices account project delete -n $FoundryAccount -g $ResourceGroup --project-name $FoundryProject 2>$null | Out-Null
   if ($DeleteFoundryAccount) {

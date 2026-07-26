@@ -1,6 +1,6 @@
-# AMC IQ Executive Demo UI
+# AMC IQ Executive Proof-of-Concept UI
 
-React + Vite + TypeScript single-page demo for the AMC IQ precision-oncology scenario.
+React + Vite + TypeScript single-page proof-of-concept for the AMC IQ precision-oncology scenario.
 
 ## Run
 
@@ -17,4 +17,4 @@ Vite serves on <http://localhost:5173> and proxies `/api` to the FastAPI backend
 npm run build
 ```
 
-If the backend stream or non-streaming endpoint is unavailable, the UI renders `src/sampleResult.ts` so the hero scenario remains demoable.
+If the backend stream or non-streaming endpoint is unavailable, the UI renders `src/sampleResult.ts` so the hero scenario remains available in local mode.
