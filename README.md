@@ -70,9 +70,9 @@ the Fabric result is available, overlapping with slower sources. See
 
 | | |
 |---|---|
-| ![Question library and IQ activity](docs/images/question-library-and-iq-activity.png) | Select a scenario question, edit it, and watch the four IQ context providers retrieve evidence in parallel. |
-| ![Building assessment workflow](docs/images/building-assessment-workflow.png) | The interface separates source retrieval from the auditable workflow used to build the assessment. |
-| ![Final trial readiness assessment](docs/images/final-trial-readiness-assessment.png) | The completed assessment turns distributed clinical, institutional, workflow, and public context into a cited recommendation for human review. |
+| ![Question entry, IQ activity, and building assessment](docs/images/building-assessment-workflow.png) | Select and edit a question-bank prompt or enter any free-form question, then watch the four IQ context providers retrieve evidence in parallel while the assessment is built. |
+| ![Citations and assessment steps](docs/images/citations-and-assessment-steps.png) | Inspect the evidence packet, source links, and the specialist retrieval and reconciliation steps behind the assessment. |
+| ![Final trial readiness assessment](docs/images/final-trial-readiness-assessment.png) | Review the completed criteria, open issues, drafted next action, reviewer status, patient snapshot, and safety boundary. |
 
 ## Prerequisites
 

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AMC IQ - Synthetic Precision-Oncology Demo</title>
+    <meta
+      name="description"
+      content="A personal, synthetic Microsoft IQ precision-oncology trial-readiness demo. No PHI. Not clinical decision support."
+    >
+    <meta name="theme-color" content="#090c17">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AMC IQ - Synthetic Precision-Oncology Demo">
+    <meta
+      property="og:description"
+      content="One clinical question, four intelligence layers, and a governed next step for human review."
+    >
+    <meta property="og:url" content="https://cricex.github.io/amc-iq/">
+    <meta property="og:image" content="https://cricex.github.io/amc-iq/images/social-preview.png">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="640">
+    <meta
+      property="og:image:alt"
+      content="AMC IQ synthetic trial-readiness demo with four intelligence layers and an assessment workflow."
+    >
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://cricex.github.io/amc-iq/images/social-preview.png">
+    <meta
+      name="twitter:image:alt"
+      content="AMC IQ synthetic trial-readiness demo with four intelligence layers and an assessment workflow."
+    >
+    <link rel="canonical" href="https://cricex.github.io/amc-iq/">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="AMC IQ home">
+          <span class="brand-mark" aria-hidden="true">IQ</span>
+          <span>AMC IQ</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="#intelligence">IQ layers</a>
+          <a href="#experience">Experience</a>
+          <a href="#boundaries">Boundaries</a>
+          <a class="nav-cta" href="https://github.com/cricex/amc-iq">View source</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero container">
+        <div class="hero-copy">
+          <p class="eyebrow">Personal project / synthetic data only</p>
+          <h1>
+            One clinical question.
+            <span class="gradient-text">Four intelligence layers.</span>
+            One governed next step.
+          </h1>
+          <p class="hero-summary">
+            AMC IQ is a mock-first demonstration of Microsoft's IQ intelligence layer applied to
+            precision-oncology trial readiness. It brings institutional knowledge, structured
+            clinical data, care-team workflow, and external evidence into one cited assessment.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/cricex/amc-iq">
+              Explore the source
+            </a>
+            <a
+              class="button button-secondary"
+              href="https://github.com/cricex/amc-iq/blob/main/docs/architecture.md"
+            >
+              Read the architecture
+            </a>
+          </div>
+          <div class="safety-note" role="note">
+            <strong>Demonstration only.</strong>
+            This is not an official Microsoft product, reference architecture, or clinical
+            solution. It uses synthetic data, contains no PHI, and is not clinical decision
+            support.
+          </div>
+        </div>
+
+        <figure class="hero-figure">
+          <div class="screen-shell">
+            <div class="screen-toolbar" aria-hidden="true">
+              <span></span><span></span><span></span>
+              <p>Building a governed assessment</p>
+            </div>
+            <img
+              src="images/building-assessment-workflow.png"
+              width="1221"
+              height="1002"
+              alt="AMC IQ interface with an editable free-text question, four IQ providers queued in parallel, and the Building Assessment workflow in progress."
+            >
+          </div>
+          <figcaption>
+            Start with a curated question-bank prompt, edit it, or type any free-form question.
+            The four IQ providers then retrieve evidence in parallel.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="metrics" aria-label="Demo facts">
+        <div class="container metrics-grid">
+          <div><strong>4</strong><span>IQ context layers</span></div>
+          <div><strong>25</strong><span>Synthetic patients</span></div>
+          <div><strong>10</strong><span>Fictional trials</span></div>
+          <div><strong>0</strong><span>PHI or clinical use</span></div>
+        </div>
+      </section>
+
+      <section class="section container scenario-section">
+        <p class="section-label">The scenario</p>
+        <div class="scenario-grid">
+          <h2>A trial-readiness question that crosses data boundaries.</h2>
+          <blockquote>
+            "Patient with metastatic NSCLC, EGFR exon 20 insertion, prior platinum therapy, ECOG 1,
+            CrCl 48. The open trial mentions renal thresholds and prior-therapy exclusions. Is the
+            patient eligible, and what should the care team do next?"
+          </blockquote>
+        </div>
+        <p class="section-intro">
+          A useful answer needs more than search. It must reconcile protocol language, patient facts,
+          institutional policy, current workflow, and public evidence while surfacing uncertainty
+          instead of hiding it.
+        </p>
+      </section>
+
+      <section class="section container" id="intelligence">
+        <p class="section-label">Four layers, one assessment</p>
+        <h2 class="editorial-heading">
+          Each source answers a different part of the question.
+        </h2>
+        <div class="layer-list">
+          <article class="layer-row layer-foundry">
+            <div class="layer-name">
+              <span class="layer-index">01</span>
+              <h3>Foundry IQ</h3>
+            </div>
+            <p>
+              Grounds the assessment in protocols, amendments, pathology, genomics, consent policy,
+              and institutional operating procedures.
+            </p>
+            <span class="layer-detail">Institutional knowledge</span>
+          </article>
+          <article class="layer-row layer-fabric">
+            <div class="layer-name">
+              <span class="layer-index">02</span>
+              <h3>Fabric IQ</h3>
+            </div>
+            <p>
+              Retrieves structured patient, laboratory, treatment, trial, enrollment, and scheduling
+              facts through a Fabric Data Agent.
+            </p>
+            <span class="layer-detail">Structured clinical context</span>
+          </article>
+          <article class="layer-row layer-work">
+            <div class="layer-name">
+              <span class="layer-index">03</span>
+              <h3>Work IQ</h3>
+            </div>
+            <p>
+              Adds coordinator ownership, tumor-board context, open tasks, PI availability, and the
+              care team's current operating state.
+            </p>
+            <span class="layer-detail">Workflow context</span>
+          </article>
+          <article class="layer-row layer-web">
+            <div class="layer-name">
+              <span class="layer-index">04</span>
+              <h3>Web IQ</h3>
+            </div>
+            <p>
+              Supplies current public evidence through a Bing-backed Azure AI Search knowledge source.
+              It is a scenario stand-in for the limited-access Web IQ product.
+            </p>
+            <span class="layer-detail">External grounding</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container process-section">
+        <p class="section-label">How the answer is built</p>
+        <div class="process-layout">
+          <h2 class="editorial-heading">Parallel retrieval. Explicit uncertainty. Human review.</h2>
+          <ol class="process-list">
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Interpret the question</strong>
+                <p>Resolve the patient, trial, requested decision, and missing facts.</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>Retrieve in parallel</strong>
+                <p>Dispatch Foundry, Fabric, Work, and Web context requests concurrently.</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>Match evidence to criteria</strong>
+                <p>Separate met criteria from blockers, uncertainty, and required follow-up.</p>
+              </div>
+            </li>
+            <li>
+              <span>04</span>
+              <div>
+                <strong>Draft a governed next action</strong>
+                <p>Return citations, an owner, and a task that remains drafted and unsubmitted.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section container" id="experience">
+        <p class="section-label">Evidence you can inspect</p>
+        <div class="showcase-grid">
+          <div class="showcase-copy">
+            <p class="showcase-number">01 / Trace</p>
+            <h2>Citations and assessment steps stay visible.</h2>
+            <p>
+              Findings link back to their source material, while the assessment trace shows the
+              specialist queries, deepening, reconciliation, and governed composition steps.
+            </p>
+            <ul class="check-list">
+              <li>Source-level evidence for every material finding</li>
+              <li>Visible retrieval and specialist activity</li>
+              <li>Human-readable impact and unresolved issues</li>
+            </ul>
+          </div>
+          <figure class="showcase-figure">
+            <div class="screen-shell screen-shell-tall">
+              <div class="screen-toolbar" aria-hidden="true">
+                <span></span><span></span><span></span>
+                <p>Citations and assessment trace</p>
+              </div>
+              <img
+                src="images/citations-and-assessment-steps.png"
+                width="2235"
+                height="1597"
+                loading="lazy"
+                alt="AMC IQ evidence packet with Foundry, Fabric, and Work IQ citations beside a completed multi-agent assessment trace."
+              >
+            </div>
+            <figcaption>
+              Every material claim remains connected to evidence and an auditable assessment step.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section container">
+        <div class="showcase-grid showcase-grid-reverse">
+          <div class="showcase-copy">
+            <p class="showcase-number">02 / Govern</p>
+            <h2>The output ends in review, not automation.</h2>
+            <p>
+              The final assessment distinguishes potential match from confirmed eligibility, makes
+              open issues prominent, and assigns a next action without submitting a task or sending a
+              message.
+            </p>
+            <div class="status-stack" aria-label="Example output statuses">
+              <span>Potential match</span>
+              <span>Not ready for screening</span>
+              <span>Ready for PI review</span>
+              <span>Drafted, not submitted</span>
+            </div>
+          </div>
+          <figure class="showcase-figure">
+            <div class="screen-shell screen-shell-portrait">
+              <div class="screen-toolbar" aria-hidden="true">
+                <span></span><span></span><span></span>
+                <p>Final trial-readiness assessment</p>
+              </div>
+              <img
+                src="images/final-trial-readiness-assessment.png"
+                width="1195"
+                height="1617"
+                loading="lazy"
+                alt="Completed AMC IQ trial-readiness assessment showing criteria, open issues, next action, reviewer assignment, patient snapshot, and safety notice."
+              >
+            </div>
+            <figcaption>
+              A cited recommendation for a coordinator and principal investigator to review.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section container" id="boundaries">
+        <p class="section-label">Designed to be honest about its boundaries</p>
+        <div class="boundary-grid">
+          <article>
+            <span class="boundary-icon" aria-hidden="true">01</span>
+            <h3>Mock-first by default</h3>
+            <p>
+              The complete local walkthrough runs against deterministic synthetic data without an
+              Azure account, authentication, or live service access.
+            </p>
+          </article>
+          <article>
+            <span class="boundary-icon" aria-hidden="true">02</span>
+            <h3>No automatic action</h3>
+            <p>
+              Tasks are drafted, not submitted. No Planner item, To Do task, Teams message, or Work IQ
+              write is created by the application.
+            </p>
+          </article>
+          <article>
+            <span class="boundary-icon" aria-hidden="true">03</span>
+            <h3>No clinical claim</h3>
+            <p>
+              The cohort, protocols, identities, and assessments are fictional. The demo is not
+              validated for patient care, trial enrollment, or clinical decision support.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container cta-inner">
+          <p class="section-label">Open, inspectable, reproducible</p>
+          <h2>Run the entire mock experience locally.</h2>
+          <p>
+            The repository includes the React interface, FastAPI orchestration, synthetic cohort,
+            ontology, IQ adapters, provisioning scripts, tests, and architecture documentation.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/cricex/amc-iq">
+              View the repository
+            </a>
+            <a
+              class="button button-secondary"
+              href="https://github.com/cricex/amc-iq/blob/main/docs/limitations.md"
+            >
+              Review limitations
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <a class="brand footer-brand" href="./">
+            <span class="brand-mark" aria-hidden="true">IQ</span>
+            <span>AMC IQ</span>
+          </a>
+          <p>Personal project. Synthetic data only. Not clinical decision support.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/cricex/amc-iq">GitHub</a>
+          <a href="https://github.com/cricex/amc-iq/blob/main/LICENSE">MIT License</a>
+          <a href="https://github.com/cricex/amc-iq/blob/main/SECURITY.md">Security</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
