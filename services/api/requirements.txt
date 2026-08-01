@@ -16,4 +16,4 @@ azure-identity>=1.19.0
 azure-keyvault-secrets>=4.8.0
 azure-ai-projects>=2.1.0
 openai>=2.0.0
-mcp>=1.9.0
+mcp>=2.0.0
