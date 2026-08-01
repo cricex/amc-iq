@@ -106,7 +106,7 @@ msal-extensions==1.3.1
     # via
     #   -r services/api/requirements.txt
     #   azure-identity
-openai==2.48.0
+openai==2.50.0
     # via
     #   -r services/api/requirements.txt
     #   azure-ai-projects
